@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/menu_relative_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_ranking"
+
+            />
+
+        <ImageView
+            android:id="@+id/menu_logout_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/ic_logout"
+            android:onClick="menu_logout" />
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_web_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/brown_light"
+        android:fontFamily="@font/futara"
+        android:onClick="menu_web"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Web Engineering"
+        android:textAllCaps="false"
+        android:textColor="@color/brown"
+        android:textSize="20dp"
+        app:cornerRadius="20dp"
+       android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_relative_layout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_oop_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/brown_light"
+        android:fontFamily="@font/futara"
+        android:onClick="menu_oop"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="OOP"
+        android:textColor="@color/brown"
+        android:textSize="20dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/menu_data_struct_button"
+        app:layout_constraintTop_toBottomOf="@+id/menu_web_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_data_struct_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:backgroundTint="@color/brown_light"
+        android:fontFamily="@font/futara"
+        android:onClick="menu_data_struct"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Data struct. and Algo."
+        android:textColor="@color/brown"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toTopOf="@id/menu_sad_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_oop_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_sad_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/brown_light"
+        android:fontFamily="@font/futara"
+        android:onClick="menu_sad_struct"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Sad"
+        android:textColor="@color/brown"
+        android:textSize="20dp"
+
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_data_struct_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

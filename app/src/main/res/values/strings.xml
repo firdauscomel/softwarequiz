@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">softwarequiz</string>
+
+    <string name="incorrect_toast">Wrong!</string>
+    <string name="correct_toast">You got it!</string>
+
+    <string name="web_question_1">Which of the following is not a basic web elements</string>
+    <string name="web_question_1_answer_a">A: HTTP Request</string>
+    <string name="web_question_1_answer_b">B: HTTP Response</string>
+    <string name="web_question_1_answer_c">C: A Monitor </string>
+
+    <string name="web_question_2">Which of the following is not a web application architectures</string>
+    <string name="web_question_2_answer_a">A: Static web pages, two-tier architecture</string>
+    <string name="web_question_2_answer_b">B: Dynamic web pages, Web-based applications, three-tier /3-tier architecture</string>
+    <string name="web_question_2_answer_c">C: Dynamic web pages, Web-based applications, three-tier /n-tier architecture</string>
+
+    <string name="web_question_3">Today’s approach in developing a web applications:</string>
+    <string name="web_question_3_answer_a">A: Reuse of existing applications by “copy and paste” approach</string>
+    <string name="web_question_3_answer_b">B: Ad-hoc development</string>
+    <string name="web_question_3_answer_c">C: All of the above</string>
+
+    <string name="web_question_4">Specify the capabilities and services a system is supposed to offer (focus on what the programs should do). The above statement referes to:</string>
+    <string name="web_question_4_answer_a">A: Functional requirements</string>
+    <string name="web_question_4_answer_b">B: Content requirements</string>
+    <string name="web_question_4_answer_c">C: Quality requirements</string>
+
+    <string name="web_question_5">A web engineering process flow consists of: </string>
+    <string name="web_question_5_answer_a">A: Communication</string>
+    <string name="web_question_5_answer_b">B: Design</string>
+    <string name="web_question_5_answer_c">C: Interview</string>
+
+    <string name="web_question_6">One of the main classes of models for WebApp:</string>
+    <string name="web_question_6_answer_a">A: Non-functional model</string>
+    <string name="web_question_6_answer_b">B: Quality model</string>
+    <string name="web_question_6_answer_c">C: Interaction model</string>
+
+    <string name="web_question_7">Use case diagram which uses the UML &lt;&lt; navigation&gt;&gt; stereotype to denote the difference between functional and hypertext specific use cases. The statement refers to:</string>
+    <string name="web_question_7_answer_a">A: Use case diagram</string>
+    <string name="web_question_7_answer_b">B: Activity diagram</string>
+    <string name="web_question_7_answer_c">C: UML-based Web Engineering </string>
+
+    <string name="web_question_8">The content model produces</string>
+    <string name="web_question_8_answer_a">A: Class diagram</string>
+    <string name="web_question_8_answer_b">B: State diagram</string>
+    <string name="web_question_8_answer_c">C: All of the above </string>
+
+    <string name="web_question_9">When should you use CSS id selector?</string>
+    <string name="web_question_9_answer_a">A: Specify a style for a single, unique element</string>
+    <string name="web_question_9_answer_b">B: Specify a style for a group of elements</string>
+    <string name="web_question_9_answer_c">C: None of the above </string>
+
+    <string name="web_question_10">Which of the following is not ways of inserting a style sheet: </string>
+    <string name="web_question_10_answer_a">A: External style sheet</string>
+    <string name="web_question_10_answer_b">B: Internal style sheet</string>
+    <string name="web_question_10_answer_c">C: Element style sheet </string>
+
+    <string name="web_question_11">External style sheet should be entered inside the : </string>
+    <string name="web_question_11_answer_a">A: Body</string>
+    <string name="web_question_11_answer_b">B: Header</string>
+    <string name="web_question_11_answer_c">C: Title </string>
+
+    <string name="web_question_12">Which rgb value produces red colour? </string>
+    <string name="web_question_12_answer_a">A: #0ff</string>
+    <string name="web_question_12_answer_b">B: rgb(255,0,0)</string>
+    <string name="web_question_12_answer_c">C: rgb(0,0,255)</string>
+
+    <string name="web_question_13">Which of the following is valid variable declaration for number value in Javascript? </string>
+    <string name="web_question_13_answer_a">A: int number = 1;</string>
+    <string name="web_question_13_answer_b">B: number Number = 2;</string>
+    <string name="web_question_13_answer_c">C: var number = 3;</string>
+
+    <string name="web_question_14">Javascript can only be use for: </string>
+    <string name="web_question_14_answer_a">A: Client-side scripting</string>
+    <string name="web_question_14_answer_b">B: Server scripting</string>
+    <string name="web_question_14_answer_c">C: Both;</string>
+
+    <string name="web_question_15">Which html tag should you surround your Javascript codes? </string>
+    <string name="web_question_15_answer_a">A: &lt;script&gt;</string>
+    <string name="web_question_15_answer_b">B: &lt;body&gt;</string>
+    <string name="web_question_15_answer_c">C: &lt;head&gt;</string>
+
+</resources>
