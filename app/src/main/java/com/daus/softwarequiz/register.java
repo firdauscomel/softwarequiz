@@ -31,7 +31,7 @@ public class register extends AppCompatActivity {
         id = findViewById(R.id.student_id_input);
         name = findViewById(R.id.student_name_input);
         dob = findViewById(R.id.student_dob_input);
-        save = findViewById(R.id.register_button);
+        save = findViewById(R.id.lohin_button);
         studentData = new myData();
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
