@@ -4,7 +4,6 @@ public class myData {
 
     private String stdID;
     private String stdName;
-    private String stdSurname;
     private String stdDOB;
     private String stdEmail;
     private String stdPass;
@@ -24,14 +23,6 @@ public class myData {
 
     public void setStdName(String stdName) {
         this.stdName = stdName;
-    }
-
-    public String getStdSurname() {
-        return stdSurname;
-    }
-
-    public void setStdSurname(String stdSurname) {
-        this.stdSurname = stdSurname;
     }
 
     public String getStdDOB() {
