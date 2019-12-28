@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         mMenuLogoutImg = findViewById(R.id.menu_logout_img);
-        mLoginSubmit = findViewById(R.id.login_submit_button);
+        mLoginSubmit = findViewById(R.id.register_button);
         mLoginButton = findViewById(R.id.login_btn);
     }
 
