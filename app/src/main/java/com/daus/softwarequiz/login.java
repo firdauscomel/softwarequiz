@@ -27,7 +27,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.login_page);
         email = findViewById(R.id.register_email_input);
         pass = findViewById(R.id.register_password_input);
-        login = findViewById(R.id.register_button);
+        login = findViewById(R.id.login_btn);
 
         studentData = new myData();
 
@@ -50,6 +50,7 @@ public class login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
             }
         });

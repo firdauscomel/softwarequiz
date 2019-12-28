@@ -24,17 +24,16 @@
             android:layout_marginTop="30dp"/>
 
         <TextView
+            android:id="@+id/login_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_close_button"
             android:layout_centerHorizontal="true"
-            android:id="@+id/login_text_view"
-            android:text="Login Page"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/futara"
+            android:text="Register Page"
             android:textColor="@color/white"
-            android:layout_below="@id/login_close_button"
-            android:textSize="30sp"
-            />
+            android:textSize="30sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/register_email_input_layout"
@@ -57,9 +56,10 @@
                 android:id="@+id/register_email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futara"
                 android:gravity="center"
                 android:hint="Enter email"
-                android:fontFamily="@font/futara"
+                android:inputType="textEmailAddress"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,9 +84,10 @@
                 android:id="@+id/register_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futara"
                 android:gravity="center"
                 android:hint="Password"
-                android:fontFamily="@font/futara"
+                android:inputType="textPassword|textWebPassword"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
