@@ -2,12 +2,27 @@ package com.daus.softwarequiz;
 
 public class myData {
 
+    private String stdEmail;
+    private String stdPass;
     private String stdID;
     private String stdName;
     private String stdDOB;
-    private String stdEmail;
-    private String stdPass;
 
+    public String getStdEmail() {
+        return stdEmail;
+    }
+
+    public void setStdEmail(String stdEmail) {
+        this.stdEmail = stdEmail;
+    }
+
+    public String getStdPass() {
+        return stdPass;
+    }
+
+    public void setStdPass(String stdPass) {
+        this.stdPass = stdPass;
+    }
 
     public String getStdID() {
         return stdID;
@@ -34,21 +49,7 @@ public class myData {
     }
 
 
-    public String getStdEmail() {
-        return stdEmail;
-    }
 
-    public void setStdEmail(String stdEmail) {
-        this.stdEmail = stdEmail;
-    }
-
-    public String getStdPass() {
-        return stdPass;
-    }
-
-    public void setStdPass(String stdPass) {
-        this.stdPass = stdPass;
-    }
 
     public myData() {
 
