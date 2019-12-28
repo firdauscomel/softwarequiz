@@ -68,8 +68,7 @@ public class register extends AppCompatActivity {
                     name.setText("");
                     dob.setText("");
 
-
-                    Toast.makeText(register.this, "Data  Successfully Inserted!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(register.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(register.this, "Please Input Some Words!", Toast.LENGTH_LONG).show();
