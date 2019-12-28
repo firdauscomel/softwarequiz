@@ -26,9 +26,9 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-        email = findViewById(R.id.register_email_input);
-        pass = findViewById(R.id.register_password_input);
-        login = findViewById(R.id.login_btn);
+        email = findViewById(R.id.login_email_input);
+        pass = findViewById(R.id.login_password_input);
+        login = findViewById(R.id.login_button);
 
         studentData = new myData();
 

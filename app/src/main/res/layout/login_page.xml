@@ -54,7 +54,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_email_input"
+                android:id="@+id/login_email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -81,7 +81,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_password_input"
+                android:id="@+id/login_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -91,7 +91,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/lohin_button"
+            android:id="@+id/login_button"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
