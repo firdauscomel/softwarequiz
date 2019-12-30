@@ -142,6 +142,29 @@ asd asdsadasdasdasdsadasdasdasdaasdasdasdasdasdasdaasdasdasdasdasdasdasdasdasdas
             android:id="@+id/quiz_progress_bar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:indeterminate="false" />
+
+        <ImageView
+            android:id="@+id/bulb_img_view"
+            android:layout_width="59dp"
+            android:layout_height="51dp"
+            android:layout_above="@id/quiz_answer_a"
+            android:layout_alignLeft="@id/quiz_answer_a"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/idea"
+            app:tintMode="add" />
+
+        <TextView
+            android:id="@+id/hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/bulb_img_view"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toRightOf="@id/bulb_img_view"
+            android:fontFamily="@font/futara"
+            android:text="hints remaining"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 

@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,13 +19,14 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
-    public static Button mAButton, mBButon,mCButton;
-    public static TextView questionText;//Testing shake detection. Colour will change when shaken
-    int index;
+    static Button mAButton, mBButon,mCButton;//public static because these buttons need to be accessed by ShakeService.java
+    TextView questionText, hintText;
+    static int index;//static for the same reason as above. Only a single instance is needed at a given time
     int score;
     int mQuestion;
     int questionNumber =1;
-    int hintCount = 3;
+    public static int hintCount = 3;
+    static boolean hintIsShown = false;//flag to check if hint is shown
     String mQuizType;
     ImageView mCloseImg;
     TextView scoreTextView;
@@ -59,10 +63,12 @@ public class QuizActivity extends AppCompatActivity {
             score = savedInstanceState.getInt("ScoreKey");
             questionNumber = savedInstanceState.getInt("QuestionNumberKey");
             index = savedInstanceState.getInt("IndexKey");
+            hintCount = savedInstanceState.getInt("HintCount");
         } else {
             score = 0;
             questionNumber =1;
             index = 0;
+            hintCount = 3;
         }
 
         mAButton = findViewById(R.id.quiz_answer_a);
@@ -72,7 +78,10 @@ public class QuizActivity extends AppCompatActivity {
         scoreTextView = findViewById(R.id.quiz_result_text);
         progressBar = findViewById(R.id.quiz_progress_bar);
         mCloseImg = findViewById(R.id.quiz_close_button);
+        hintText = findViewById(R.id.hint_text);
         scoreTextView.setText("Question "+ (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
+        hintText.setText(hintCount + " hints remaining.");
+
 
         if(mQuizType.equals("web")){
             mQuestion = mWebQuestionBank[index].getQuestionId();
@@ -90,8 +99,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('a');
                 updateQuestion();
-                mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
-
             }
         });
         mBButon.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +106,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('b');
                 updateQuestion();
-                mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
             }
         });
         mCButton.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +113,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('c');
                 updateQuestion();
-                mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
             }
         });
 
@@ -119,8 +124,9 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 
-        //Shake for hints
-        showHint();
+        //Shake for hints service
+        Intent intent = new Intent(this, ShakeService.class);
+        startService(intent);
 
     }
     private void updateQuestion() {
@@ -160,10 +166,27 @@ public class QuizActivity extends AppCompatActivity {
         questionText.setText(mQuestion);
         progressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
         scoreTextView.setText("Question "+ (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
+
+        mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
+        mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
+        mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
+
+        Log.d("QUIZ", "hintIsShown(updateQuestion): "+hintIsShown);
+
+        //Handle hint count
+        if(hintIsShown){
+            hintIsShown = false;
+            hintCount--;
+        }
+        hintText.setText(hintCount + " hints remaining.");
+
+        Log.d("QUIZ", "hintCount: "+hintCount);
     }
 
     private void checkAnswer(char userSelected) {
         char correctAnswer = mWebQuestionBank[index].getAnswer();
+
+        Log.d("QUIZ", "checkAnswer: "+correctAnswer);
 
         if (userSelected == correctAnswer) {
             Toast.makeText(getApplicationContext(), R.string.correct_toast, Toast.LENGTH_SHORT).show();
@@ -173,24 +196,30 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    public char getCorrectAnswer(){
+
+    public void getCorrectAnswer(Context context){
         char correctAnswer = mWebQuestionBank[index].getAnswer();
 
-        return correctAnswer;
-    }
+        hintIsShown = true;
+//        Log.d("QUIZ", "hintIsShown(getCorrectAnswer): "+hintIsShown);
 
-    private void showHint() {
-        //Shake detection service
-        Intent intent = new Intent(this, ShakeService.class);
+//        Log.d("QUIZ", "getCorrectAnswer: "+correctAnswer + "Index:  "+index);
+
         if(hintCount>0){
-            startService(intent);
-            hintCount--;
+            int color = Color.argb(230, 207, 235, 30);
+//            Toast.makeText(this, "Correct Answer:  " + correctAnswer, Toast.LENGTH_SHORT).show();
+            if (correctAnswer == 'a' || correctAnswer == 'A') {
+                QuizActivity.mAButton.setBackgroundColor(color);
+            } else if (correctAnswer == 'b' || correctAnswer == 'B') {
+                QuizActivity.mBButon.setBackgroundColor(color);
+            } else if (correctAnswer == 'c' || correctAnswer == 'C') {
+                QuizActivity.mCButton.setBackgroundColor(color);
+            }
         }else{
-            Toast.makeText(this, "Out of hints!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Out of hints!", Toast.LENGTH_SHORT).show();
         }
+
     }
-
-
 
 
     @Override
@@ -200,5 +229,6 @@ public class QuizActivity extends AppCompatActivity {
         outState.putInt("ScoreKey", score);
         outState.putInt("QuestionNumberKey", questionNumber);
         outState.putInt("IndexKey", index);
+        outState.putInt("HintCount", hintCount);
     }
 }

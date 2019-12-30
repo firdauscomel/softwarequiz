@@ -14,12 +14,15 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 
 import androidx.annotation.ColorInt;
 
 import java.util.Random;
+
+import static com.daus.softwarequiz.QuizActivity.hintCount;
 
 public class ShakeService extends Service implements SensorEventListener {
 
@@ -31,7 +34,6 @@ public class ShakeService extends Service implements SensorEventListener {
 
 
     QuizActivity quizActivity = new QuizActivity();
-    char correctAnswer;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,17 +65,8 @@ public class ShakeService extends Service implements SensorEventListener {
         mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
         //Action to perform upon shake detection
-        if (mAccel > 20) {
-            correctAnswer = quizActivity.getCorrectAnswer();
-            int color = Color.argb(230, 207, 235, 30);
-            Toast.makeText(this, "Correct Answer:  " + correctAnswer, Toast.LENGTH_SHORT).show();
-            if (correctAnswer == 'a' || correctAnswer == 'A') {
-                QuizActivity.mAButton.setBackgroundColor(color);
-            } else if (correctAnswer == 'b' || correctAnswer == 'B') {
-                QuizActivity.mBButon.setBackgroundColor(color);
-            } else if (correctAnswer == 'c' || correctAnswer == 'C') {
-                QuizActivity.mCButton.setBackgroundColor(color);
-            }
+        if (mAccel > 15) {
+            quizActivity.getCorrectAnswer(this);
         }
 
     }
