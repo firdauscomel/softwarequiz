@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import javax.security.auth.login.LoginException;
+
 public class MainActivity extends AppCompatActivity {
     Button login,register;
+    login quickLogin = new login();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         //mLoginButton = findViewById(R.id.login_btn);
         register = findViewById(R.id.sign_up_btn);
         login = findViewById(R.id.login_btn);
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

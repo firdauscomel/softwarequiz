@@ -22,6 +22,7 @@
         <activity android:name=".MainMenu"></activity>
         <activity android:name=".login"></activity>
         <activity android:name=".ForgotPassword"></activity>
+        <service android:name="com.daus.softwarequiz.ShakeService"></service>
     </application>
 
 </manifest>

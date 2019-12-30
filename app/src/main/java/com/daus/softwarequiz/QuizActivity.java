@@ -1,9 +1,11 @@
 package com.daus.softwarequiz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +16,13 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
-    Button mAButton, mBButon,mCButton;
-    TextView questionText;
+    public static Button mAButton, mBButon,mCButton;
+    public static TextView questionText;//Testing shake detection. Colour will change when shaken
     int index;
     int score;
     int mQuestion;
     int questionNumber =1;
+    int hintCount = 3;
     String mQuizType;
     ImageView mCloseImg;
     TextView scoreTextView;
@@ -87,6 +90,8 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('a');
                 updateQuestion();
+                mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
+
             }
         });
         mBButon.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +99,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('b');
                 updateQuestion();
+                mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
             }
         });
         mCButton.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +107,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checkAnswer('c');
                 updateQuestion();
+                mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
             }
         });
 
@@ -110,6 +117,10 @@ public class QuizActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        //Shake for hints
+        showHint();
 
     }
     private void updateQuestion() {
@@ -131,6 +142,12 @@ public class QuizActivity extends AppCompatActivity {
                     index = 0;
                     questionNumber=1;
                     scoreTextView.setText("Question "+ (index+1) + " Score " + score + "/" + mWebQuestionBank.length);
+                }
+            });
+            alert.setNeutralButton("Main Menu", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
                 }
             });
             alert.show();
@@ -155,6 +172,24 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
         }
     }
+
+    public char getCorrectAnswer(){
+        char correctAnswer = mWebQuestionBank[index].getAnswer();
+
+        return correctAnswer;
+    }
+
+    private void showHint() {
+        //Shake detection service
+        Intent intent = new Intent(this, ShakeService.class);
+        if(hintCount>0){
+            startService(intent);
+            hintCount--;
+        }else{
+            Toast.makeText(this, "Out of hints!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
 

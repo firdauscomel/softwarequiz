@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 public class login extends AppCompatActivity {
 
     private EditText emailTextView, passwordTextView;
-    private Button Btnlogin;
+    private Button Btnlogin, devLoginBtn;
     private ProgressBar progressbar;
     private ImageView mMenuLogoutImg;
     private TextView tvregister, tvforgot;
@@ -40,6 +40,7 @@ public class login extends AppCompatActivity {
         mMenuLogoutImg = findViewById(R.id.login_close_button);
         tvregister = findViewById(R.id.register_text_view);
         tvforgot = findViewById(R.id.forgot_text_view);
+        devLoginBtn = findViewById(R.id.login_button2);
 
         tvregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,5 +134,33 @@ public class login extends AppCompatActivity {
                                 });
             }
         });
+
+        devLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                devLogin();
+            }
+        });
+    }
+
+    public void devLogin(){
+        mAuth.signInWithEmailAndPassword("test@gmail.com", "12345678")
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Intent mainMenu = new Intent(login.this,MainMenu.class);
+                            startActivity(mainMenu);
+                            Toast.makeText(login.this, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
     }
 }
