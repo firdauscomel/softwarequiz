@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 public class MainMenu extends AppCompatActivity {
     private ImageView mMenuLogoutImg;
-    private Button web;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,7 +19,6 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.main_menu);
 
         mMenuLogoutImg = findViewById(R.id.menu_logout_img);
-        web = findViewById(R.id.menu_web_button);
 
         mMenuLogoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
