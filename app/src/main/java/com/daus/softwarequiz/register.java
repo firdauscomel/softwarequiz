@@ -3,77 +3,110 @@ package com.daus.softwarequiz;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class register extends AppCompatActivity {
-    private EditText email,pass,id,name,dob;
-    private Button save;
-    DatabaseReference reference;
-    myData studentData;
-    long noID;
+    private EditText inputEmail, inputPassword;
+    private Button register;
+    private ProgressBar progressBar;
+    private ImageView mMenuLogoutImg;
+    private TextView tvlogin;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
-        email = findViewById(R.id.register_email_input);
-        pass = findViewById(R.id.register_password_input);
-        id = findViewById(R.id.student_id_input);
-        name = findViewById(R.id.student_name_input);
-        dob = findViewById(R.id.student_dob_input);
-        save = findViewById(R.id.register_button);
-        studentData = new myData();
 
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        reference = db.getReference().child("myData");
+        auth = FirebaseAuth.getInstance();
 
-        reference.addValueEventListener(new ValueEventListener() {
+        tvlogin =  findViewById(R.id.login_text_view);
+        mMenuLogoutImg = findViewById(R.id.register_close_button);
+        register =  findViewById(R.id.register_button);
+        inputEmail =  findViewById(R.id.login_email_input);
+        inputPassword =  findViewById(R.id.login_password_input);
+        progressBar =  findViewById(R.id.progressBar);;
+
+
+        tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                    noID = dataSnapshot.getChildrenCount();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v) {
+                Intent login = new Intent(register.this, login.class);
+                startActivity(login);
+                finish();
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        mMenuLogoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(email.length()!=0 && pass.length()!=0 && id.length()!=0 && name.length()!=0 && dob.length()!=0) {
-                    studentData.setStdEmail(email.getText().toString());
-                    studentData.setStdPass(pass.getText().toString());
-                    studentData.setStdID(id.getText().toString());
-                    studentData.setStdName(name.getText().toString());
-                    studentData.setStdDOB(dob.getText().toString());
-
-                    //reference.push().setValue(studentData);
-                    reference.child(String.valueOf(noID + 1)).setValue(studentData);
-                    email.setText("");
-                    pass.setText("");
-                    id.setText("");
-                    name.setText("");
-                    dob.setText("");
-
-                    Toast.makeText(register.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(register.this, "Please Input Some Words!", Toast.LENGTH_LONG).show();
-                }
+                finish();
             }
         });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(register.this, "Authentication failed." + task.getException(),
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    startActivity(new Intent(register.this, MainActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
     }
 }
