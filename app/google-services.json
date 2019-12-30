@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "974606104393",
+    "firebase_url": "https://softwarequiz-f1a38.firebaseio.com",
+    "project_id": "softwarequiz-f1a38",
+    "storage_bucket": "softwarequiz-f1a38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974606104393:android:57736685a99629cc8e0c98",
+        "android_client_info": {
+          "package_name": "com.daus.softwarequiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974606104393-5cquj6uh3m3nstund64bapfd0gd9kvqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daus.softwarequiz",
+            "certificate_hash": "b11dfcde0a159d15fdb94dfe7e30ac5c84068fce"
+          }
+        },
+        {
+          "client_id": "974606104393-ues8niu1u2gqo7t5703uo5aknslhrjgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4MAtnn3TgMur6zaLw7j7drBmG5FBX3ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974606104393-ues8niu1u2gqo7t5703uo5aknslhrjgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
