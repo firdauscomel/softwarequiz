@@ -79,18 +79,24 @@ public class login extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Please enter email!!", Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
+                    emailTextView.setText("");
+                    passwordTextView.setText("");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
+                    emailTextView.setText("");
+                    passwordTextView.setText("");
                     return;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_LONG).show();
                     progressbar.setVisibility(View.GONE);
+                    emailTextView.setText("");
+                    passwordTextView.setText("");
                     return;
                 }
 
@@ -106,13 +112,20 @@ public class login extends AppCompatActivity {
 
                                             progressbar.setVisibility(View.GONE);
 
+                                            emailTextView.setText("");
+                                            passwordTextView.setText("");
+
                                             Intent intent = new Intent(login.this, MainMenu.class);
                                             startActivity(intent);
+
                                         }
 
                                         else {
 
                                             Toast.makeText(getApplicationContext(), "Login failed!!", Toast.LENGTH_LONG).show();
+
+                                            emailTextView.setText("");
+                                            passwordTextView.setText("");
 
                                             progressbar.setVisibility(View.GONE);
                                         }

@@ -68,16 +68,22 @@ public class register extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Please enter email!!", Toast.LENGTH_SHORT).show();
+                    inputEmail.setText("");
+                    inputPassword.setText("");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_SHORT).show();
+                    inputEmail.setText("");
+                    inputPassword.setText("");
                     return;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    inputEmail.setText("");
+                    inputPassword.setText("");
                     return;
                 }
 
@@ -89,11 +95,16 @@ public class register extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Toast.makeText(register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
+                                inputEmail.setText("");
+                                inputPassword.setText("");
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(register.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(register.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+                                    inputEmail.setText("");
+                                    inputPassword.setText("");
                                 } else {
+                                    inputEmail.setText("");
+                                    inputPassword.setText("");
                                     startActivity(new Intent(register.this, MainActivity.class));
                                     finish();
                                 }
