@@ -9,13 +9,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -167,17 +172,27 @@ public class QuizActivity extends AppCompatActivity {
         progressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
         scoreTextView.setText("Question "+ (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
 
+
+        Log.d("QUIZ", "hintIsShown(updateQuestion): "+hintIsShown);
+
         mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
         mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
         mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
 
-        Log.d("QUIZ", "hintIsShown(updateQuestion): "+hintIsShown);
+        mAButton.setEnabled(true);
+        mBButon.setEnabled(true);
+        mCButton.setEnabled(true);
+
+        mAButton.clearAnimation();
+        mBButon.clearAnimation();
+        mCButton.clearAnimation();
 
         //Handle hint count
         if(hintIsShown){
             hintIsShown = false;
             hintCount--;
         }
+
         hintText.setText(hintCount + " hints remaining.");
 
         Log.d("QUIZ", "hintCount: "+hintCount);
@@ -198,23 +213,85 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void getCorrectAnswer(Context context){
+        Animation blink = AnimationUtils.loadAnimation(context, R.anim.blink);
+        Animation fadeToGrey = AnimationUtils.loadAnimation(context, R.anim.fade_to_grey);
         char correctAnswer = mWebQuestionBank[index].getAnswer();
 
-        hintIsShown = true;
 //        Log.d("QUIZ", "hintIsShown(getCorrectAnswer): "+hintIsShown);
 
 //        Log.d("QUIZ", "getCorrectAnswer: "+correctAnswer + "Index:  "+index);
 
         if(hintCount>0){
+            Random rand = new Random();
+            int number =  rand.nextInt(2);
             int color = Color.argb(230, 207, 235, 30);
 //            Toast.makeText(this, "Correct Answer:  " + correctAnswer, Toast.LENGTH_SHORT).show();
             if (correctAnswer == 'a' || correctAnswer == 'A') {
-                QuizActivity.mAButton.setBackgroundColor(color);
+                //Randomizing answers
+                if(!hintIsShown){
+                    if(number==1){
+                        //Highlight A and B
+                        QuizActivity.mAButton.setBackgroundColor(color);
+                        mAButton.startAnimation(blink);
+                        QuizActivity.mBButon.setBackgroundColor(color);
+                        mBButon.startAnimation(blink);
+                        mCButton.startAnimation(fadeToGrey);
+                        mCButton.setEnabled(false);
+                    }else{
+                        //Highlight A and C
+                        QuizActivity.mAButton.setBackgroundColor(color);
+                        mAButton.startAnimation(blink);
+                        QuizActivity.mCButton.setBackgroundColor(color);
+                        mCButton.startAnimation(blink);
+                        mBButon.startAnimation(fadeToGrey);
+                        mBButon.setEnabled(false);
+                    }
+                }
             } else if (correctAnswer == 'b' || correctAnswer == 'B') {
-                QuizActivity.mBButon.setBackgroundColor(color);
+                //Randomizing answers
+                if(!hintIsShown){
+                    if(number==1){
+                        //Highlight A and B
+                        QuizActivity.mAButton.setBackgroundColor(color);
+                        mAButton.startAnimation(blink);
+                        QuizActivity.mBButon.setBackgroundColor(color);
+                        mBButon.startAnimation(blink);
+                        mCButton.startAnimation(fadeToGrey);
+                        mCButton.setEnabled(false);
+                    }else{
+                        //Highlight B and C
+                        QuizActivity.mBButon.setBackgroundColor(color);
+                        mBButon.startAnimation(blink);
+                        QuizActivity.mCButton.setBackgroundColor(color);
+                        mCButton.startAnimation(blink);
+                        mAButton.startAnimation(fadeToGrey);
+                        mAButton.setEnabled(false);
+                    }
+                }
             } else if (correctAnswer == 'c' || correctAnswer == 'C') {
-                QuizActivity.mCButton.setBackgroundColor(color);
+                //Randomizing answers
+                if(!hintIsShown){
+                    if(number==1){
+                        //Highlight A and C
+                        QuizActivity.mAButton.setBackgroundColor(color);
+                        mAButton.startAnimation(blink);
+                        QuizActivity.mCButton.setBackgroundColor(color);
+                        mCButton.startAnimation(blink);
+                        mBButon.startAnimation(fadeToGrey);
+                        mBButon.setEnabled(false);
+                    }else{
+                        //Highlight B and C
+                        QuizActivity.mBButon.setBackgroundColor(color);
+                        mBButon.startAnimation(blink);
+                        QuizActivity.mCButton.setBackgroundColor(color);
+                        mCButton.startAnimation(blink);
+                        mAButton.startAnimation(fadeToGrey);
+                        mAButton.setEnabled(false);
+
+                    }
+                }
             }
+            hintIsShown = true;
         }else{
             Toast.makeText(context, "Out of hints!", Toast.LENGTH_SHORT).show();
         }
