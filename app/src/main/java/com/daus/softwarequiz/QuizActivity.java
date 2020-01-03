@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,6 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -36,6 +41,11 @@ public class QuizActivity extends AppCompatActivity {
     ImageView mCloseImg;
     TextView scoreTextView;
     ProgressBar progressBar;
+    private String mUsername;
+    private DatabaseReference mDatabaseReference;
+    private FirebaseAuth mAuth;
+    User user;
+
 
     private Quiz[] mWebQuestionBank = new Quiz[]{
             new Quiz(R.string.web_question_1, 'c', R.string.web_question_1_answer_a, R.string.web_question_1_answer_b, R.string.web_question_1_answer_c),
@@ -62,8 +72,14 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
-        mQuizType = getIntent().getExtras().getString("Quiz_type","defaultKey");
+        mAuth = FirebaseAuth.getInstance();
 
+        setupUserName();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        user = new User(mUsername);
+        mDatabaseReference.child("users-scoreboard").child((mAuth.getUid())).push().setValue(user);
+
+        mQuizType = getIntent().getExtras().getString("Quiz_type","defaultKey");
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt("ScoreKey");
             questionNumber = savedInstanceState.getInt("QuestionNumberKey");
@@ -145,14 +161,26 @@ public class QuizActivity extends AppCompatActivity {
             alert.setTitle("Game Over");
             alert.setCancelable(false);
             alert.setMessage("You scored " + score + " points!");
+
+            int oldWebScore = user.getWebScore();
+            if(oldWebScore < score) {
+                user.setWebScore(score);
+                user.setTotalScore();
+                updateDatabase(user);
+            }
+
             alert.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     progressBar.setProgress(0);
                     score = 0;
                     index = 0;
+                    hintCount = 3;
+                    hintText.setText(hintCount + " hints remaining.");
                     questionNumber=1;
                     scoreTextView.setText("Question "+ (index+1) + " Score " + score + "/" + mWebQuestionBank.length);
+
+
                 }
             });
             alert.setNeutralButton("Main Menu", new DialogInterface.OnClickListener() {
@@ -298,6 +326,17 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
+    private void setupUserName() {
+        SharedPreferences prefs = getSharedPreferences(register.QUIZ_PREFS, MODE_PRIVATE);
+        mUsername = prefs.getString(register.USERNAME, null);
+        if(mUsername == null) mUsername = "Anon";
+    }
+
+    private void updateDatabase(User user){
+        DatabaseReference databaseReference;
+        databaseReference = FirebaseDatabase.getInstance().getReference("users-scoreboard");
+        databaseReference.child(mAuth.getUid()).setValue(user);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

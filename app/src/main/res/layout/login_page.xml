@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
-    
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="15dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
         android:layout_height="match_parent"
-        android:background="@color/brown">
+        android:layout_margin="15dp"
+        android:background="@color/brown"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button2"
@@ -30,39 +30,37 @@
             android:textAllCaps="false"
             android:textSize="20sp"
             app:cornerRadius="20dp"
+            android:visibility="gone"
 
             />
 
         <ImageView
             android:id="@+id/login_close_button"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
             android:background="@drawable/ic_close_button"
             android:onClick="login_close" />
 
         <TextView
+            android:id="@+id/login_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_close_button"
             android:layout_centerHorizontal="true"
-            android:id="@+id/login_text_view"
-            android:text="Login Page"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/futara"
+            android:text="Login Page"
             android:textColor="@color/white"
-            android:layout_below="@id/login_close_button"
-            android:textSize="30sp"
-            />
+            android:textSize="30sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_email_input_layout"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_text_view"
             android:layout_marginTop="30dp"
             app:boxBackgroundColor="@color/white"
             app:boxCornerRadiusBottomEnd="20dp"
@@ -71,26 +69,26 @@
             app:boxCornerRadiusTopStart="20dp"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_below="@id/login_text_view"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futara"
                 android:gravity="center"
                 android:hint="Enter email"
                 android:inputType="textEmailAddress"
-                android:fontFamily="@font/futara"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_password_input_layout"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_email_input_layout"
             android:layout_marginTop="25dp"
             app:boxBackgroundColor="@color/white"
             app:boxCornerRadiusBottomEnd="20dp"
@@ -99,52 +97,51 @@
             app:boxCornerRadiusTopStart="20dp"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_below="@id/login_email_input_layout"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futara"
                 android:gravity="center"
                 android:hint="Password"
-                android:fontFamily="@font/futara"
                 android:inputType="textPassword"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/login_password_input_layout"
+            android:layout_marginTop="25dp"
             android:backgroundTint="@color/red"
-            android:onClick="login_submit"
             android:fontFamily="@font/futara"
+            android:onClick="login_submit"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="Submit"
             android:textAllCaps="false"
             android:textSize="20sp"
-            android:layout_marginTop="25dp"
             app:cornerRadius="20dp"
-            android:layout_below="@id/login_password_input_layout"
 
-           />
+            />
 
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/register_text_view"
-        android:text="Not a member? Get registered now!"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/futara"
-        android:textColor="@color/white"
-        android:layout_below="@id/login_button"
-        android:textSize="20sp"
-        />
+            android:id="@+id/register_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/futara"
+            android:gravity="center"
+            android:text="Not a member? Get registered now!"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/forgot_text_view"
@@ -160,10 +157,10 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:visibility="gone"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

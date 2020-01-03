@@ -73,7 +73,7 @@ public class login extends AppCompatActivity {
             {
                 progressbar.setVisibility(View.VISIBLE);
 
-                String email, password;
+                final String email, password;
                 email = emailTextView.getText().toString();
                 password = passwordTextView.getText().toString();
 
@@ -115,6 +115,16 @@ public class login extends AppCompatActivity {
 
                                             emailTextView.setText("");
                                             passwordTextView.setText("");
+
+                                            //admin login
+                                            if(email.equals("test@gmail.com") && password.equals("12345678")){
+                                                Toast.makeText(getApplicationContext(), "Welcome to dev page", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(login.this, MainMenu.class);
+                                                startActivity(intent);
+                                            } else {
+                                                Intent intent = new Intent(login.this, MainMenu.class);
+                                                startActivity(intent);
+                                            }
 
                                             Intent intent = new Intent(login.this, MainMenu.class);
                                             startActivity(intent);

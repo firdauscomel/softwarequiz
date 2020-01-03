@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,25 +22,30 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class register extends AppCompatActivity {
-    private EditText inputEmail, inputPassword;
+
+    public static final String USERNAME = "username";
+    public static final String QUIZ_PREFS = "QuizPrefs";
+
+    private EditText inputEmail, inputPassword, inputUsername;
     private Button register;
     private ProgressBar progressBar;
     private ImageView mMenuLogoutImg;
     private TextView tvlogin;
-    private FirebaseAuth auth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
 
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         tvlogin =  findViewById(R.id.login_text_view);
         mMenuLogoutImg = findViewById(R.id.register_close_button);
         register =  findViewById(R.id.register_button);
         inputEmail =  findViewById(R.id.login_email_input);
         inputPassword =  findViewById(R.id.login_password_input);
+        inputUsername = findViewById(R.id.register_username_input);
         progressBar =  findViewById(R.id.progressBar);;
 
 
@@ -86,27 +92,34 @@ public class register extends AppCompatActivity {
                     inputPassword.setText("");
                     return;
                 }
+                if(!email.contains("@")) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email", Toast.LENGTH_SHORT).show();
+                    inputEmail.setText("");
+                    inputPassword.setText("");
+                }
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                auth.createUserWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(register.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(register.this, "Register successful!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 inputEmail.setText("");
                                 inputPassword.setText("");
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(register.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     inputEmail.setText("");
                                     inputPassword.setText("");
                                 } else {
                                     inputEmail.setText("");
                                     inputPassword.setText("");
-                                    startActivity(new Intent(register.this, MainActivity.class));
+                                    saveUserName();
                                     finish();
+                                    startActivity(new Intent(register.this, MainMenu.class));
+
                                 }
                             }
                         });
@@ -114,6 +127,13 @@ public class register extends AppCompatActivity {
             }
         });
     }
+
+    private void saveUserName(){
+        String userName = inputUsername.getText().toString();
+        SharedPreferences prefs = getSharedPreferences(QUIZ_PREFS, 0);
+        prefs.edit().putString(USERNAME, userName).apply();
+    }
+
 
     @Override
     protected void onResume() {

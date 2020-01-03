@@ -15,16 +15,13 @@
         android:background="@color/brown">
 
         <ImageView
+            android:layout_width="20dp"
             android:id="@+id/register_close_button"
-            android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
+            android:layout_height="20dp"
             android:background="@drawable/ic_close_button"
-            android:onClick="login_close" />
+            android:layout_alignParentRight="true"
+            android:onClick="login_close"
+            android:layout_marginTop="30dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +37,7 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/register_email_input_layout"
+            android:id="@+id/register_username_input_layout"
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +51,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_below="@id/register_text_view"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_username_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/futara"
+                android:gravity="center"
+                android:hint="Enter username"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_email_input_layout"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_below="@id/register_username_input_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -130,6 +156,7 @@
         <ProgressBar
             android:id="@+id/progressBar"
             android:visibility="gone"
+            android:layout_marginTop="30dp"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
