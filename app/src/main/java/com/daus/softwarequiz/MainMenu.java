@@ -25,7 +25,7 @@ public class MainMenu extends AppCompatActivity {
         mMenuLogoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startActivity(new Intent(MainMenu.this, MainActivity.class));
             }
         });
 
