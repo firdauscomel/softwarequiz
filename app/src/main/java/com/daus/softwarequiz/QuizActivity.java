@@ -55,6 +55,8 @@ public class QuizActivity extends AppCompatActivity {
     boolean isNew;
 
 
+    private Quiz[] mQuestionBank = new Quiz[]{};
+
     private Quiz[] mWebQuestionBank = new Quiz[]{
             new Quiz(R.string.web_question_1, 'c', R.string.web_question_1_answer_a, R.string.web_question_1_answer_b, R.string.web_question_1_answer_c),
             new Quiz(R.string.web_question_2, 'b', R.string.web_question_2_answer_a, R.string.web_question_2_answer_b, R.string.web_question_2_answer_c),
@@ -71,6 +73,25 @@ public class QuizActivity extends AppCompatActivity {
             new Quiz(R.string.web_question_13, 'c', R.string.web_question_13_answer_a, R.string.web_question_13_answer_b, R.string.web_question_13_answer_c),
             new Quiz(R.string.web_question_14, 'c', R.string.web_question_14_answer_a, R.string.web_question_14_answer_b, R.string.web_question_14_answer_c),
             new Quiz(R.string.web_question_15, 'a', R.string.web_question_15_answer_a, R.string.web_question_15_answer_b, R.string.web_question_15_answer_c)
+
+    };
+
+    private Quiz[] mDSQuestionBank = new Quiz[]{
+            new Quiz(R.string.ds_question_1, 'b', R.string.ds_question_1_answer_a, R.string.ds_question_1_answer_b, R.string.ds_question_1_answer_c),
+            new Quiz(R.string.ds_question_2, 'a', R.string.ds_question_2_answer_a, R.string.ds_question_2_answer_b, R.string.ds_question_2_answer_c),
+            new Quiz(R.string.ds_question_3, 'c', R.string.ds_question_3_answer_a, R.string.ds_question_3_answer_b, R.string.ds_question_3_answer_c),
+            new Quiz(R.string.ds_question_4, 'b', R.string.ds_question_4_answer_a, R.string.ds_question_4_answer_b, R.string.ds_question_4_answer_c),
+            new Quiz(R.string.ds_question_5, 'c', R.string.ds_question_5_answer_a, R.string.ds_question_5_answer_b, R.string.ds_question_5_answer_c),
+            new Quiz(R.string.ds_question_6, 'b', R.string.ds_question_6_answer_a, R.string.ds_question_6_answer_b, R.string.ds_question_6_answer_c),
+            new Quiz(R.string.ds_question_7, 'a', R.string.ds_question_7_answer_a, R.string.ds_question_7_answer_b, R.string.ds_question_7_answer_c),
+            new Quiz(R.string.ds_question_8, 'b', R.string.ds_question_8_answer_a, R.string.ds_question_8_answer_b, R.string.ds_question_8_answer_c),
+            new Quiz(R.string.ds_question_9, 'a', R.string.ds_question_9_answer_a, R.string.ds_question_9_answer_b, R.string.ds_question_9_answer_c),
+            new Quiz(R.string.ds_question_10, 'c', R.string.ds_question_10_answer_a, R.string.ds_question_10_answer_b, R.string.ds_question_10_answer_c),
+            new Quiz(R.string.ds_question_11, 'c', R.string.ds_question_11_answer_a, R.string.ds_question_11_answer_b, R.string.ds_question_11_answer_c),
+            new Quiz(R.string.ds_question_12, 'b', R.string.ds_question_12_answer_a, R.string.ds_question_12_answer_b, R.string.ds_question_12_answer_c),
+            new Quiz(R.string.ds_question_13, 'b', R.string.ds_question_13_answer_a, R.string.ds_question_13_answer_b, R.string.ds_question_13_answer_c),
+            new Quiz(R.string.ds_question_14, 'a', R.string.ds_question_14_answer_a, R.string.ds_question_14_answer_b, R.string.ds_question_14_answer_c),
+            new Quiz(R.string.ds_question_15, 'b', R.string.ds_question_15_answer_a, R.string.ds_question_15_answer_b, R.string.ds_question_15_answer_c)
 
     };
 
@@ -142,12 +163,20 @@ public class QuizActivity extends AppCompatActivity {
         scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
         hintText.setText(hintCount + " hints remaining.");
 
-
+        //TODO clone the object arrays into mQuestionBank and use only mQuestionBank for everything
         if (mQuizType.equals("web")) {
+            mQuestionBank = mWebQuestionBank;
             mQuestion = mWebQuestionBank[index].getQuestionId();
             mAButton.setText(mWebQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mWebQuestionBank[index].getQuiz_answer_b());
             mCButton.setText(mWebQuestionBank[index].getQuiz_answer_c());
+        }
+
+        if (mQuizType.equals("ds")) {
+            mQuestion = mDSQuestionBank[index].getQuestionId();
+            mAButton.setText(mDSQuestionBank[index].getQuiz_answer_a());
+            mBButon.setText(mDSQuestionBank[index].getQuiz_answer_b());
+            mCButton.setText(mDSQuestionBank[index].getQuiz_answer_c());
         }
 
         questionText.setText(mQuestion);
@@ -234,8 +263,9 @@ public class QuizActivity extends AppCompatActivity {
             alert.setNeutralButton("Main Menu", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    user.setWebScore(score);
-                    updateDatabase(user);
+//                    Log.d("QUIZ", "Main menu btn: score = " + score);
+//                    user.setWebScore(score);
+//                    updateDatabase(user);
                     signOut();
                 }
             });
@@ -391,7 +421,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private void signOut() {
         //FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(QuizActivity.this, MainMenu.class));
+        Intent intent = new Intent(QuizActivity.this, MainMenu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override

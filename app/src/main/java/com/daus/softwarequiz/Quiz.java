@@ -7,6 +7,13 @@ public class Quiz {
     private int quiz_answer_b;
     private int quiz_answer_c;
 
+    public Quiz(Quiz quizToClone) {
+        this.questionId = quizToClone.questionId;
+        this.answer = quizToClone.answer;
+        this.quiz_answer_a = quizToClone.quiz_answer_a;
+        this.quiz_answer_b = quizToClone.quiz_answer_b;
+        this.quiz_answer_c = quizToClone.quiz_answer_c;
+    }
 
     public Quiz(int questionId, char answer, int quiz_answer_a, int quiz_answer_b, int quiz_answer_c) {
         this.questionId = questionId;

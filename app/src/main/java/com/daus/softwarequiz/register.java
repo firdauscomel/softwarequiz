@@ -53,6 +53,7 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent login = new Intent(register.this, login.class);
+                login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(login);
                 finish();
             }

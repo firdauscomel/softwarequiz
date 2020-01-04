@@ -25,7 +25,9 @@ public class MainMenu extends AppCompatActivity {
         mMenuLogoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainMenu.this, MainActivity.class));
+                Intent intent = new Intent(MainMenu.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
 
@@ -35,6 +37,24 @@ public class MainMenu extends AppCompatActivity {
     public void menu_web(View view){
         Intent intent = new Intent(MainMenu.this, QuizActivity.class);
         intent.putExtra("Quiz_type", "web");
+        startActivity(intent);
+    }
+
+    public void menu_data_struct(View view){
+        Intent intent = new Intent(MainMenu.this, QuizActivity.class);
+        intent.putExtra("Quiz_type", "ds");
+        startActivity(intent);
+    }
+
+    public void menu_oop(View view){
+        Intent intent = new Intent(MainMenu.this, QuizActivity.class);
+        intent.putExtra("Quiz_type", "oop");
+        startActivity(intent);
+    }
+
+    public void menu_sad(View view){
+        Intent intent = new Intent(MainMenu.this, QuizActivity.class);
+        intent.putExtra("Quiz_type", "sad");
         startActivity(intent);
     }
 }

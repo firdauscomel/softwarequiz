@@ -127,6 +127,7 @@ public class login extends AppCompatActivity {
                                             }
 
                                             Intent intent = new Intent(login.this, MainMenu.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
 
                                         }
@@ -154,13 +155,14 @@ public class login extends AppCompatActivity {
     }
 
     public void devLogin(){
-        mAuth.signInWithEmailAndPassword("test@gmail.com", "12345678")
+        mAuth.signInWithEmailAndPassword("jason@gmail.com", "12345678")
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Intent mainMenu = new Intent(login.this,MainMenu.class);
+                            mainMenu.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainMenu);
                             Toast.makeText(login.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
