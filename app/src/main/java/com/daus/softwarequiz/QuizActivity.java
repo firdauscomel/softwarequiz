@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -55,7 +56,7 @@ public class QuizActivity extends AppCompatActivity {
     boolean isNew;
 
 
-    private Quiz[] mQuestionBank = new Quiz[]{};
+    private static Quiz[] mQuestionBank = new Quiz[]{};
 
     private Quiz[] mWebQuestionBank = new Quiz[]{
             new Quiz(R.string.web_question_1, 'c', R.string.web_question_1_answer_a, R.string.web_question_1_answer_b, R.string.web_question_1_answer_c),
@@ -117,6 +118,7 @@ public class QuizActivity extends AppCompatActivity {
                 } else {
                     userNew = snapshot.getValue(User.class);
                     userNew.getWebScore();
+                    userNew.getDataStrucScore();
 //                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 //                        System.out.println(snapshot.getValue().toString());
 //                        Log.i("username", ""+postSnapshot.child("webScore").getValue());
@@ -163,20 +165,19 @@ public class QuizActivity extends AppCompatActivity {
         scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
         hintText.setText(hintCount + " hints remaining.");
 
-        //TODO clone the object arrays into mQuestionBank and use only mQuestionBank for everything
+        //TODO Do the same for OOP and SAD
         if (mQuizType.equals("web")) {
-            mQuestionBank = mWebQuestionBank;
-            mQuestion = mWebQuestionBank[index].getQuestionId();
-            mAButton.setText(mWebQuestionBank[index].getQuiz_answer_a());
-            mBButon.setText(mWebQuestionBank[index].getQuiz_answer_b());
-            mCButton.setText(mWebQuestionBank[index].getQuiz_answer_c());
-        }
-
-        if (mQuizType.equals("ds")) {
-            mQuestion = mDSQuestionBank[index].getQuestionId();
-            mAButton.setText(mDSQuestionBank[index].getQuiz_answer_a());
-            mBButon.setText(mDSQuestionBank[index].getQuiz_answer_b());
-            mCButton.setText(mDSQuestionBank[index].getQuiz_answer_c());
+            mQuestionBank = fullCopy(mWebQuestionBank);
+            mQuestion = mQuestionBank[index].getQuestionId();
+            mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
+            mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
+            mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
+        }else if (mQuizType.equals("ds")) {
+            mQuestionBank = fullCopy(mDSQuestionBank);
+            mQuestion = mQuestionBank[index].getQuestionId();
+            mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
+            mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
+            mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
         }
 
         questionText.setText(mQuestion);
@@ -220,8 +221,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private void updateQuestion() {
 
-        index = (index + 1) % mWebQuestionBank.length;
-        if (questionNumber < mWebQuestionBank.length) {
+        index = (index + 1) % mQuestionBank.length;
+        if (questionNumber < mQuestionBank.length) {
             questionNumber++;
         }
         if (index == 0) {
@@ -231,20 +232,47 @@ public class QuizActivity extends AppCompatActivity {
             alert.setMessage("You scored " + score + " points!");
 
             if(userNew != null) {
-                Log.i("webscore", String.valueOf(userNew.getWebScore()));
-                if (userNew.getWebScore() < score) {
-                    userNew.setWebScore(score);
-                    userNew.setTotalScore();
-                    updateDatabase(userNew);
+                if(mQuizType.equals("web")){
+                    Log.i("webscore", String.valueOf(userNew.getWebScore()));
+                    if (userNew.getWebScore() < score) {
+                        userNew.setWebScore(score);
+                    }
+                }else if(mQuizType.equals("ds")){
+                    if (userNew.getDataStrucScore() < score) {
+                        userNew.setDataStrucScore(score);
+                    }
+                }else if(mQuizType.equals("oop")){
+                    if (userNew.getOopScore() < score) {
+                        userNew.setOopScore(score);
+                    }
+                }else if(mQuizType.equals("sad")){
+                    if (userNew.getSadScore() < score) {
+                        userNew.setSadScore(score);
+                    }
                 }
-            }
-            else {
-                Log.i("webscore", String.valueOf(user.getWebScore()));
-                if (user.getWebScore() < score) {
-                    user.setWebScore(score);
-                    user.setTotalScore();
-                    updateDatabase(user);
+                userNew.setTotalScore();
+                updateDatabase(userNew);
+            }else{
+                if(mQuizType.equals("web")) {
+                    Log.i("webscore", String.valueOf(user.getWebScore()));
+                    if (user.getWebScore() < score) {
+                        user.setWebScore(score);
+                    }
+                }else if(mQuizType.equals("ds")){
+                    if (user.getDataStrucScore() < score) {
+                        user.setDataStrucScore(score);
+                    }
+                }else if(mQuizType.equals("oop")){
+                    if (user.getOopScore() < score) {
+                        user.setOopScore(score);
+                    }
+                }else if(mQuizType.equals("sad")){
+                    if (user.getSadScore() < score) {
+                        user.setSadScore(score);
+                    }
                 }
+                user.setTotalScore();
+                updateDatabase(user);
             }
             alert.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                 @Override
@@ -255,7 +283,7 @@ public class QuizActivity extends AppCompatActivity {
                     hintCount = 3;
                     hintText.setText(hintCount + " hints remaining.");
                     questionNumber = 1;
-                    scoreTextView.setText("Question " + (index + 1) + " Score " + score + "/" + mWebQuestionBank.length);
+                    scoreTextView.setText("Question " + (index + 1) + " Score " + score + "/" + mQuestionBank.length);
 
 
                 }
@@ -272,13 +300,13 @@ public class QuizActivity extends AppCompatActivity {
             alert.show();
         }
 
-        mQuestion = mWebQuestionBank[index].getQuestionId();
-        mAButton.setText(mWebQuestionBank[index].getQuiz_answer_a());
-        mBButon.setText(mWebQuestionBank[index].getQuiz_answer_b());
-        mCButton.setText(mWebQuestionBank[index].getQuiz_answer_c());
+        mQuestion = mQuestionBank[index].getQuestionId();
+        mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
+        mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
+        mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
         questionText.setText(mQuestion);
         progressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
-        scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
+        scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mQuestionBank.length);
 
 
         Log.d("QUIZ", "hintIsShown(updateQuestion): " + hintIsShown);
@@ -307,7 +335,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void checkAnswer(char userSelected) {
-        char correctAnswer = mWebQuestionBank[index].getAnswer();
+        char correctAnswer = mQuestionBank[index].getAnswer();
 
         Log.d("QUIZ", "checkAnswer: " + correctAnswer);
 
@@ -323,7 +351,7 @@ public class QuizActivity extends AppCompatActivity {
     public void getCorrectAnswer(Context context) {
         Animation blink = AnimationUtils.loadAnimation(context, R.anim.blink);
         Animation fadeToGrey = AnimationUtils.loadAnimation(context, R.anim.fade_to_grey);
-        char correctAnswer = mWebQuestionBank[index].getAnswer();
+        char correctAnswer = mQuestionBank[index].getAnswer();
 
 //        Log.d("QUIZ", "hintIsShown(getCorrectAnswer): "+hintIsShown);
 
@@ -334,7 +362,7 @@ public class QuizActivity extends AppCompatActivity {
             int number = rand.nextInt(2);
             int color = Color.argb(230, 207, 235, 30);
 //            Toast.makeText(this, "Correct Answer:  " + correctAnswer, Toast.LENGTH_SHORT).show();
-            if (correctAnswer == 'a' || correctAnswer == 'A') {
+            if (correctAnswer == 'a') {
                 //Randomizing answers
                 if (!hintIsShown) {
                     if (number == 1) {
@@ -355,7 +383,7 @@ public class QuizActivity extends AppCompatActivity {
                         mBButon.setEnabled(false);
                     }
                 }
-            } else if (correctAnswer == 'b' || correctAnswer == 'B') {
+            } else if (correctAnswer == 'b') {
                 //Randomizing answers
                 if (!hintIsShown) {
                     if (number == 1) {
@@ -376,7 +404,7 @@ public class QuizActivity extends AppCompatActivity {
                         mAButton.setEnabled(false);
                     }
                 }
-            } else if (correctAnswer == 'c' || correctAnswer == 'C') {
+            } else if (correctAnswer == 'c') {
                 //Randomizing answers
                 if (!hintIsShown) {
                     if (number == 1) {
@@ -424,6 +452,19 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = new Intent(QuizActivity.this, MainMenu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    //Deep copy of the one of the 4 question banks to mQuestionBank
+    private static Quiz[] fullCopy(Quiz[] source) {
+        Quiz[] destination = new Quiz[source.length];
+
+        for(int i=0; i< source.length; i++) {
+            Quiz q = source[i];
+            if(q!=null){
+                destination[i]=new Quiz(q);
+            }
+        }
+        return destination;
     }
 
     @Override

@@ -1,58 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="15dp"
-
         android:layout_height="match_parent"
+
+        android:layout_margin="15dp"
         android:background="@color/brown">
 
         <ImageView
-            android:layout_width="20dp"
             android:id="@+id/quiz_close_button"
+            android:layout_width="20dp"
             android:layout_height="20dp"
 
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/ic_close_button"
-            android:layout_alignParentRight="true"
-            android:onClick="login_close"
-            android:layout_marginTop="30dp"/>
+            android:onClick="login_close" />
 
         <TextView
+            android:id="@+id/quiz_result_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"
-            android:id="@+id/quiz_result_text"
-            android:text="Question 1 Score 0/15"
             android:layout_marginTop="27dp"
             android:fontFamily="@font/futara"
+            android:text="Question 1 Score 0/15"
             android:textColor="@color/white"
 
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <LinearLayout
+            android:id="@+id/quiz_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_below="@id/quiz_result_text"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:id="@+id/quiz_linear_layout"
-            android:layout_below="@id/quiz_result_text">
+            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/quiz_question_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/futara"
                 android:maxHeight="300dp"
                 android:maxLines="10"
                 android:scrollbars="vertical"
-                android:id="@+id/quiz_question_text"
                 android:text="Hellow asdasdasda asdasd asdasd as d asd as da sd asd as da sd as das asd as d
 Hellow asdasdasda asdasd asdasd as d asd as da sd asd as da sd as das asd as d
 Hellow asdasdasda asdasd asdasd as d asd as da sd asd as da sd as das asd as d
@@ -65,13 +68,9 @@ as
 das
 asd
 asd asdsadasdasdasdsadasdasdasdaasdasdasdasdasdasdaasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd"
-                android:layout_marginTop="27dp"
-                android:fontFamily="@font/futara"
                 android:textColor="@color/white"
 
-                android:textSize="20sp"
-                />
-
+                android:textSize="20sp" />
 
 
         </LinearLayout>
@@ -81,66 +80,66 @@ asd asdsadasdasdasdsadasdasdasdaasdasdasdasdasdasdaasdasdasdasdasdasdasdasdasdas
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/brown_red"
-            android:onClick="login_submit"
-            android:fontFamily="@font/futara"
-            android:text="C: lorem"
-            android:textAllCaps="false"
-            android:textSize="20dp"
-            android:gravity="left"
+            android:layout_above="@id/quiz_progress_bar"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/brown_red"
+            android:fontFamily="@font/futara"
+            android:gravity="left"
+            android:onClick="login_submit"
+            android:text="C: lorem"
+            android:textAllCaps="false"
 
-            android:layout_above="@id/quiz_progress_bar"
-            app:cornerRadius="10dp"
-            />
+            android:textSize="20dp"
+            app:cornerRadius="10dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/quiz_answer_b"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/brown_red"
-            android:onClick="login_submit"
-            android:fontFamily="@font/futara"
-            android:text="B: lorem"
-            android:gravity="left"
-            android:textAllCaps="false"
-            android:textSize="20dp"
+            android:layout_above="@id/quiz_answer_c"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/brown_red"
+            android:fontFamily="@font/futara"
+            android:gravity="left"
+            android:onClick="login_submit"
+            android:text="B: lorem"
+            android:textAllCaps="false"
 
-            android:layout_above="@id/quiz_answer_c"
-            app:cornerRadius="10dp"
-            />
+            android:textSize="20dp"
+            app:cornerRadius="10dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/quiz_answer_a"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/brown_red"
-            android:onClick="login_submit"
-            android:fontFamily="@font/futara"
-            android:text="A: lorem"
-            android:gravity="left"
-            android:textAllCaps="false"
-            android:textSize="20dp"
+            android:layout_above="@id/quiz_answer_b"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/brown_red"
+            android:fontFamily="@font/futara"
+            android:gravity="left"
+            android:onClick="login_submit"
+            android:text="A: lorem"
+            android:textAllCaps="false"
 
-            android:layout_above="@id/quiz_answer_b"
-            app:cornerRadius="10dp"
-            />
+            android:textSize="20dp"
+            app:cornerRadius="10dp" />
+
         <ProgressBar
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:id="@+id/quiz_progress_bar"
             style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:indeterminate="false" />
 
         <ImageView
@@ -150,6 +149,7 @@ asd asdsadasdasdasdsadasdasdasdaasdasdasdasdasdasdaasdasdasdasdasdasdasdasdasdas
             android:layout_above="@id/quiz_answer_a"
             android:layout_alignLeft="@id/quiz_answer_a"
             android:layout_marginBottom="15dp"
+            android:tooltipText="Shake for hints!"
             app:srcCompat="@drawable/idea"
             app:tintMode="add" />
 
@@ -165,6 +165,7 @@ asd asdsadasdasdasdsadasdasdasdaasdasdasdasdasdasdaasdasdasdasdasdasdasdasdasdas
             android:text="hints remaining"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
     </RelativeLayout>
 
 
