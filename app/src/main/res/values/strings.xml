@@ -156,11 +156,81 @@
     <string name="ds_question_15_answer_b">B: 3</string>
     <string name="ds_question_15_answer_c">C: 4</string>
 
+    <!--    OOP questions-->
+    <string name="oop_question_1">Which of these keyword is an access modifier?</string>
+    <string name="oop_question_1_answer_a">A: super</string>
+    <string name="oop_question_1_answer_b">B: final</string>
+    <string name="oop_question_1_answer_c">C: private</string>
 
+    <string name="oop_question_2">Which of the following best defines a class?</string>
+    <string name="oop_question_2_answer_a">A: Parent of an object</string>
+    <string name="oop_question_2_answer_b">B: Instance of an object</string>
+    <string name="oop_question_2_answer_c">C: Scope of an object</string>
 
+    <string name="oop_question_3">Which of the following OOP concept is used to derive a class from another?</string>
+    <string name="oop_question_3_answer_a">A: Inheritance</string>
+    <string name="oop_question_3_answer_b">B: Encapsulation</string>
+    <string name="oop_question_3_answer_c">C: Polymorphism</string>
 
+    <string name="oop_question_4">Which of the following is a weak relationship between two objects?</string>
+    <string name="oop_question_4_answer_a">A: Inheritance</string>
+    <string name="oop_question_4_answer_b">B: Aggregation</string>
+    <string name="oop_question_4_answer_c">C: Composition</string>
 
+    <string name="oop_question_5">Which of the following is false?</string>
+    <string name="oop_question_5_answer_a">A: Objects cannot be passed by reference</string>
+    <string name="oop_question_5_answer_b">B: Memory for an object is allocated only after its constructor is called</string>
+    <string name="oop_question_5_answer_c">C: Object must be created before using members of a class</string>
 
+    <string name="oop_question_6">How members of an object are accessed?</string>
+    <string name="oop_question_6_answer_a">A: Using member names directly</string>
+    <string name="oop_question_6_answer_b">B: Using scope resolution operator</string>
+    <string name="oop_question_6_answer_c">C: Using dot operator/period symbol</string>
+
+    <string name="oop_question_7">If a local class is defined in a function, which of the following is true for an object of that class?</string>
+    <string name="oop_question_7_answer_a">A: Object is accessible outside the function</string>
+    <string name="oop_question_7_answer_b">B: Object can be used/accessed/declared locally in that function.</string>
+    <string name="oop_question_7_answer_c">C: Object can be used to call other class members</string>
+
+    <string name="oop_question_8">Which among the following best describes polymorphism?</string>
+    <string name="oop_question_8_answer_a">A: Ability for undefined message/data to be processed in at least one way</string>
+    <string name="oop_question_8_answer_b">B: Ability for many messages/data to be processed in one way</string>
+    <string name="oop_question_8_answer_c">C: Ability for a message/data to be processed in more than one form</string>
+
+    <string name="oop_question_9">Which among the following best describes encapsulation?</string>
+    <string name="oop_question_9_answer_a">A: Combining data members into a single unit</string>
+    <string name="oop_question_9_answer_b">B: Combining member functions into a single unit</string>
+    <string name="oop_question_9_answer_c">C: Combining data members and member functions into a single unit</string>
+
+    <string name="oop_question_10">If data members are private, what can we do to access them from the class object?</string>
+    <string name="oop_question_10_answer_a">A: Create public member functions</string>
+    <string name="oop_question_10_answer_b">B: Create protected member functions</string>
+    <string name="oop_question_10_answer_c">C: Private data members can never be accessed from outside the class</string>
+
+    <string name="oop_question_11">Which among the following violates the principle of encapsulation?</string>
+    <string name="oop_question_11_answer_a">A: Public variables</string>
+    <string name="oop_question_11_answer_b">B: Global variables</string>
+    <string name="oop_question_11_answer_c">C: Array variables</string>
+
+    <string name="oop_question_12">Which among the following best defines abstraction?</string>
+    <string name="oop_question_12_answer_a">A: Hiding the important data</string>
+    <string name="oop_question_12_answer_b">B: Hiding the implementation and showing only the features</string>
+    <string name="oop_question_12_answer_c">C: Hiding the implementation</string>
+
+    <string name="oop_question_13">Which are the two blocks that are used to check error and handle the error?</string>
+    <string name="oop_question_13_answer_a">A: Try and catch</string>
+    <string name="oop_question_13_answer_b">B: TryDo and Check</string>
+    <string name="oop_question_13_answer_c">C: Do and while</string>
+
+    <string name="oop_question_14">How to declare an object of class String?</string>
+    <string name="oop_question_14_answer_a">A: String object = value;</string>
+    <string name="oop_question_14_answer_b">B: String object = new String(value);</string>
+    <string name="oop_question_14_answer_c">C: String object = new;</string>
+
+    <string name="oop_question_15">Which OOP concept is exhibited by the function overriding?</string>
+    <string name="oop_question_15_answer_a">A: Inheritance</string>
+    <string name="oop_question_15_answer_b">B: Polymorphism</string>
+    <string name="oop_question_15_answer_c">C: Abstraction</string>
 
 
     <!--    Jason was here!-->

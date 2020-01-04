@@ -96,6 +96,24 @@ public class QuizActivity extends AppCompatActivity {
 
     };
 
+    private Quiz[] mOOPQuestionBank = new Quiz[]{
+            new Quiz(R.string.oop_question_1, 'c', R.string.oop_question_1_answer_a, R.string.oop_question_1_answer_b, R.string.oop_question_1_answer_c),
+            new Quiz(R.string.oop_question_2, 'b', R.string.oop_question_2_answer_a, R.string.oop_question_2_answer_b, R.string.oop_question_2_answer_c),
+            new Quiz(R.string.oop_question_3, 'a', R.string.oop_question_3_answer_a, R.string.oop_question_3_answer_b, R.string.oop_question_3_answer_c),
+            new Quiz(R.string.oop_question_4, 'b', R.string.oop_question_4_answer_a, R.string.oop_question_4_answer_b, R.string.oop_question_4_answer_c),
+            new Quiz(R.string.oop_question_5, 'a', R.string.oop_question_5_answer_a, R.string.oop_question_5_answer_b, R.string.oop_question_5_answer_c),
+            new Quiz(R.string.oop_question_6, 'c', R.string.oop_question_6_answer_a, R.string.oop_question_6_answer_b, R.string.oop_question_6_answer_c),
+            new Quiz(R.string.oop_question_7, 'b', R.string.oop_question_7_answer_a, R.string.oop_question_7_answer_b, R.string.oop_question_7_answer_c),
+            new Quiz(R.string.oop_question_8, 'c', R.string.oop_question_8_answer_a, R.string.oop_question_8_answer_b, R.string.oop_question_8_answer_c),
+            new Quiz(R.string.oop_question_9, 'c', R.string.oop_question_9_answer_a, R.string.oop_question_9_answer_b, R.string.oop_question_9_answer_c),
+            new Quiz(R.string.oop_question_10, 'a', R.string.oop_question_10_answer_a, R.string.oop_question_10_answer_b, R.string.oop_question_10_answer_c),
+            new Quiz(R.string.oop_question_11, 'b', R.string.oop_question_11_answer_a, R.string.oop_question_11_answer_b, R.string.oop_question_11_answer_c),
+            new Quiz(R.string.oop_question_12, 'b', R.string.oop_question_12_answer_a, R.string.oop_question_12_answer_b, R.string.oop_question_12_answer_c),
+            new Quiz(R.string.oop_question_13, 'a', R.string.oop_question_13_answer_a, R.string.oop_question_13_answer_b, R.string.oop_question_13_answer_c),
+            new Quiz(R.string.oop_question_14, 'a', R.string.oop_question_14_answer_a, R.string.oop_question_14_answer_b, R.string.oop_question_14_answer_c),
+            new Quiz(R.string.oop_question_15, 'b', R.string.oop_question_15_answer_a, R.string.oop_question_15_answer_b, R.string.oop_question_15_answer_c)
+    };
+
     final int PROGRESS_BAR_INCREMENT = (int) Math.ceil(100.0 / mWebQuestionBank.length);
 
     @Override
@@ -174,6 +192,12 @@ public class QuizActivity extends AppCompatActivity {
             mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
         }else if (mQuizType.equals("ds")) {
             mQuestionBank = fullCopy(mDSQuestionBank);
+            mQuestion = mQuestionBank[index].getQuestionId();
+            mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
+            mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
+            mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
+        }else if (mQuizType.equals("oop")) {
+            mQuestionBank = fullCopy(mOOPQuestionBank);
             mQuestion = mQuestionBank[index].getQuestionId();
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
