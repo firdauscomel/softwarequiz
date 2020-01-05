@@ -116,7 +116,35 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.quiz);
         mAuth = FirebaseAuth.getInstance();
 
+        mAButton = findViewById(R.id.quiz_answer_a);
+        mBButon = findViewById(R.id.quiz_answer_b);
+        mCButton = findViewById(R.id.quiz_answer_c);
+        questionText = findViewById(R.id.quiz_question_text);
+        scoreTextView = findViewById(R.id.quiz_result_text);
+        progressBar = findViewById(R.id.quiz_progress_bar);
+        mCloseImg = findViewById(R.id.scoreboard_close_button);
+        hintText = findViewById(R.id.hint_text);
+        scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
+
+        hintCount = 3;
+        hintText.setText(hintCount + " hints remaining.");
+
+        mQuizType = getIntent().getExtras().getString("Quiz_type", "defaultKey");
+        if (savedInstanceState != null) {
+            score = savedInstanceState.getInt("ScoreKey");
+            questionNumber = savedInstanceState.getInt("QuestionNumberKey");
+            index = savedInstanceState.getInt("IndexKey");
+            hintCount = savedInstanceState.getInt("HintCount");
+        } else {
+            score = 0;
+            questionNumber = 1;
+            index = 0;
+            hintCount = 3;
+        }
+
+
         setupUserName();
+        resetButtons();
 
 
         FirebaseDatabase.getInstance().getReference("users-scoreboard").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -154,29 +182,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
 
-        mQuizType = getIntent().getExtras().getString("Quiz_type", "defaultKey");
-        if (savedInstanceState != null) {
-            score = savedInstanceState.getInt("ScoreKey");
-            questionNumber = savedInstanceState.getInt("QuestionNumberKey");
-            index = savedInstanceState.getInt("IndexKey");
-            hintCount = savedInstanceState.getInt("HintCount");
-        } else {
-            score = 0;
-            questionNumber = 1;
-            index = 0;
-            hintCount = 3;
-        }
 
-        mAButton = findViewById(R.id.quiz_answer_a);
-        mBButon = findViewById(R.id.quiz_answer_b);
-        mCButton = findViewById(R.id.quiz_answer_c);
-        questionText = findViewById(R.id.quiz_question_text);
-        scoreTextView = findViewById(R.id.quiz_result_text);
-        progressBar = findViewById(R.id.quiz_progress_bar);
-        mCloseImg = findViewById(R.id.scoreboard_close_button);
-        hintText = findViewById(R.id.hint_text);
-        scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
-        hintText.setText(hintCount + " hints remaining.");
 
         //TODO Do the same for OOP and SAD
         if (mQuizType.equals("web")) {
@@ -330,17 +336,7 @@ public class QuizActivity extends AppCompatActivity {
 
         Log.d("QUIZ", "hintIsShown(updateQuestion): " + hintIsShown);
 
-        mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
-        mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
-        mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
-
-        mAButton.setEnabled(true);
-        mBButon.setEnabled(true);
-        mCButton.setEnabled(true);
-
-        mAButton.clearAnimation();
-        mBButon.clearAnimation();
-        mCButton.clearAnimation();
+        resetButtons();
 
         //Handle hint count
         if (hintIsShown) {
@@ -488,6 +484,20 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
         return destination;
+    }
+
+    private void resetButtons(){
+        mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
+        mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
+        mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
+
+        mAButton.setEnabled(true);
+        mBButon.setEnabled(true);
+        mCButton.setEnabled(true);
+
+        mAButton.clearAnimation();
+        mBButon.clearAnimation();
+        mCButton.clearAnimation();
     }
 
     @Override
