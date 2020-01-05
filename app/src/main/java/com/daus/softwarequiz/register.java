@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class register extends AppCompatActivity {
@@ -105,22 +110,22 @@ public class register extends AppCompatActivity {
                         .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(register.this, "Register successful!", Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                inputEmail.setText("");
-                                inputPassword.setText("");
-
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     inputEmail.setText("");
                                     inputPassword.setText("");
                                 } else {
-                                    inputEmail.setText("");
-                                    inputPassword.setText("");
                                     saveUserName();
-                                    finish();
-                                    startActivity(new Intent(register.this, MainMenu.class));
-
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(register.this, "Register successful!", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                            //Added small timeout to allow the username to load properly after registering
+                                            finish();
+                                            startActivity(new Intent(register.this, MainMenu.class));
+                                        }
+                                    }, 1000);
                                 }
                             }
                         });
@@ -130,9 +135,26 @@ public class register extends AppCompatActivity {
     }
 
     private void saveUserName(){
-        String userName = inputUsername.getText().toString();
-        SharedPreferences prefs = getSharedPreferences(QUIZ_PREFS, 0);
-        prefs.edit().putString(USERNAME, userName).apply();
+//        String userName = inputUsername.getText().toString();
+//        SharedPreferences prefs = getSharedPreferences(QUIZ_PREFS, 0);
+//        prefs.edit().putString(USERNAME, userName).apply();
+
+        //Update display name in Firebase Auth
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(inputUsername.getText().toString())
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("AUTH", "User profile updated.");
+                        }
+                    }
+                });
     }
 
 

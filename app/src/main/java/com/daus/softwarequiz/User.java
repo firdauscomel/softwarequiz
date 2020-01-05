@@ -15,7 +15,8 @@ public class User {
 //        this.dataStrucScore = 0;
 //        this.sadScore = 0;
 //    }
-        public User(String userName) {
+
+    public User(String userName) {
         this.userName = userName;
     }
 

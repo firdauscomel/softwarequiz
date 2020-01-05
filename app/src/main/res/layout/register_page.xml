@@ -60,7 +60,7 @@
                 android:fontFamily="@font/futara"
                 android:gravity="center"
                 android:hint="Enter username"
-                android:inputType="textEmailAddress"
+                android:inputType="textCapSentences"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>

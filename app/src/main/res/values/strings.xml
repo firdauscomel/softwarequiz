@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">softwarequiz</string>
+    <string name="app_name">Software Engineering Quiz</string>
 
     <string name="incorrect_toast">Wrong!</string>
     <string name="correct_toast">You got it!</string>
+
+    <!--    Web Eng. questions-->
 
     <string name="web_question_1">Which of the following is not a basic web elements</string>
     <string name="web_question_1_answer_a">A: HTTP Request</string>
@@ -80,7 +82,7 @@
     <string name="web_question_15_answer_c">C: &lt;head&gt;</string>
 
 
-<!--    Data Struct questions-->
+    <!--    Data Struct questions-->
     <string name="ds_question_1">Prefix notation is also known as</string>
     <string name="ds_question_1_answer_a">A: Reverse Notation</string>
     <string name="ds_question_1_answer_b">B: Polish Notation</string>

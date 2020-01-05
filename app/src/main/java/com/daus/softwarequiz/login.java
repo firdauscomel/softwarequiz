@@ -155,7 +155,7 @@ public class login extends AppCompatActivity {
     }
 
     public void devLogin(){
-        mAuth.signInWithEmailAndPassword("jason@gmail.com", "12345678")
+        mAuth.signInWithEmailAndPassword("admin@gmail.com", "12345678")
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

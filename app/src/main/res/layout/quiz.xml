@@ -14,7 +14,7 @@
         android:background="@color/brown">
 
         <ImageView
-            android:id="@+id/quiz_close_button"
+            android:id="@+id/scoreboard_close_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
 

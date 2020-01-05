@@ -1,8 +1,6 @@
 package com.daus.softwarequiz;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,8 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -121,6 +115,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz);
         mAuth = FirebaseAuth.getInstance();
+
         setupUserName();
 
 
@@ -178,7 +173,7 @@ public class QuizActivity extends AppCompatActivity {
         questionText = findViewById(R.id.quiz_question_text);
         scoreTextView = findViewById(R.id.quiz_result_text);
         progressBar = findViewById(R.id.quiz_progress_bar);
-        mCloseImg = findViewById(R.id.quiz_close_button);
+        mCloseImg = findViewById(R.id.scoreboard_close_button);
         hintText = findViewById(R.id.hint_text);
         scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mWebQuestionBank.length);
         hintText.setText(hintCount + " hints remaining.");
@@ -459,9 +454,13 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void setupUserName() {
-        SharedPreferences prefs = getSharedPreferences(register.QUIZ_PREFS, MODE_PRIVATE);
-        mUsername = prefs.getString(register.USERNAME, null);
-        if (mUsername == null) mUsername = "Anon";
+//        SharedPreferences prefs = getSharedPreferences(register.QUIZ_PREFS, MODE_PRIVATE);
+//        mUsername = prefs.getString(register.USERNAME, null);
+//        if (mUsername == null) mUsername = "Anon";
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            mUsername = user.getDisplayName();
+        }
         Log.i("username", mUsername);
     }
 
