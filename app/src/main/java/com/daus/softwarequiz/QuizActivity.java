@@ -161,6 +161,7 @@ public class QuizActivity extends AppCompatActivity {
 
         setupUserName();
         resetButtons();
+        hintIsShown = false;
 
         FirebaseDatabase.getInstance().getReference("users-scoreboard").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -318,6 +319,7 @@ public class QuizActivity extends AppCompatActivity {
                     score = 0;
                     index = 0;
                     hintCount = 3;
+                    hintIsShown = false;
                     hintText.setText(hintCount + " hints remaining.");
                     questionNumber = 1;
                     scoreTextView.setText("Question " + (index + 1) + " Score " + score + "/" + mQuestionBank.length);

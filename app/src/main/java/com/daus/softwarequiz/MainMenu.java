@@ -1,5 +1,6 @@
 package com.daus.softwarequiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -24,7 +25,7 @@ public class MainMenu extends AppCompatActivity {
     private MaterialButton webBtn, oopBtn, dsBtn, sadBtn;
     private TextView userName;
     private ImageView mMenuLogoutImg;
-    String name, email, uid;
+    String name="", email="", uid="";
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -47,6 +48,7 @@ public class MainMenu extends AppCompatActivity {
         mMenuLogoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(MainMenu.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -144,6 +146,10 @@ public class MainMenu extends AppCompatActivity {
             email = user.getEmail();
             uid = user.getUid();
             Log.d("AUTH", "Logged in User: Name: " +name + " Email: " + email + "  UID: " + uid);
+        }else{
+            Intent intent = new Intent(MainMenu.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
     }
 
