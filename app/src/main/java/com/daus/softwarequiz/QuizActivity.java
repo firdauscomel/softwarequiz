@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -49,7 +51,6 @@ public class QuizActivity extends AppCompatActivity {
     User user, userNew;
     boolean isNew;
 
-
     private static Quiz[] mQuestionBank = new Quiz[]{};
 
     private Quiz[] mWebQuestionBank = new Quiz[]{
@@ -68,7 +69,6 @@ public class QuizActivity extends AppCompatActivity {
             new Quiz(R.string.web_question_13, 'c', R.string.web_question_13_answer_a, R.string.web_question_13_answer_b, R.string.web_question_13_answer_c),
             new Quiz(R.string.web_question_14, 'c', R.string.web_question_14_answer_a, R.string.web_question_14_answer_b, R.string.web_question_14_answer_c),
             new Quiz(R.string.web_question_15, 'a', R.string.web_question_15_answer_a, R.string.web_question_15_answer_b, R.string.web_question_15_answer_c)
-
     };
 
     private Quiz[] mDSQuestionBank = new Quiz[]{
@@ -87,7 +87,6 @@ public class QuizActivity extends AppCompatActivity {
             new Quiz(R.string.ds_question_13, 'b', R.string.ds_question_13_answer_a, R.string.ds_question_13_answer_b, R.string.ds_question_13_answer_c),
             new Quiz(R.string.ds_question_14, 'a', R.string.ds_question_14_answer_a, R.string.ds_question_14_answer_b, R.string.ds_question_14_answer_c),
             new Quiz(R.string.ds_question_15, 'b', R.string.ds_question_15_answer_a, R.string.ds_question_15_answer_b, R.string.ds_question_15_answer_c)
-
     };
 
     private Quiz[] mOOPQuestionBank = new Quiz[]{
@@ -106,6 +105,24 @@ public class QuizActivity extends AppCompatActivity {
             new Quiz(R.string.oop_question_13, 'a', R.string.oop_question_13_answer_a, R.string.oop_question_13_answer_b, R.string.oop_question_13_answer_c),
             new Quiz(R.string.oop_question_14, 'a', R.string.oop_question_14_answer_a, R.string.oop_question_14_answer_b, R.string.oop_question_14_answer_c),
             new Quiz(R.string.oop_question_15, 'b', R.string.oop_question_15_answer_a, R.string.oop_question_15_answer_b, R.string.oop_question_15_answer_c)
+    };
+
+    private Quiz[] mSADQuestionBank = new Quiz[]{
+            new Quiz(R.string.sad_question_1, 'b', R.string.sad_question_1_answer_a, R.string.sad_question_1_answer_b, R.string.sad_question_1_answer_c),
+            new Quiz(R.string.sad_question_2, 'c', R.string.sad_question_2_answer_a, R.string.sad_question_2_answer_b, R.string.sad_question_2_answer_c),
+            new Quiz(R.string.sad_question_3, 'a', R.string.sad_question_3_answer_a, R.string.sad_question_3_answer_b, R.string.sad_question_3_answer_c),
+            new Quiz(R.string.sad_question_4, 'c', R.string.sad_question_4_answer_a, R.string.sad_question_4_answer_b, R.string.sad_question_4_answer_c),
+            new Quiz(R.string.sad_question_5, 'b', R.string.sad_question_5_answer_a, R.string.sad_question_5_answer_b, R.string.sad_question_5_answer_c),
+            new Quiz(R.string.sad_question_6, 'a', R.string.sad_question_6_answer_a, R.string.sad_question_6_answer_b, R.string.sad_question_6_answer_c),
+            new Quiz(R.string.sad_question_7, 'c', R.string.sad_question_7_answer_a, R.string.sad_question_7_answer_b, R.string.sad_question_7_answer_c),
+            new Quiz(R.string.sad_question_8, 'b', R.string.sad_question_8_answer_a, R.string.sad_question_8_answer_b, R.string.sad_question_8_answer_c),
+            new Quiz(R.string.sad_question_9, 'c', R.string.sad_question_9_answer_a, R.string.sad_question_9_answer_b, R.string.sad_question_9_answer_c),
+            new Quiz(R.string.sad_question_10, 'b', R.string.sad_question_10_answer_a, R.string.sad_question_10_answer_b, R.string.sad_question_10_answer_c),
+            new Quiz(R.string.sad_question_11, 'c', R.string.sad_question_11_answer_a, R.string.sad_question_11_answer_b, R.string.sad_question_11_answer_c),
+            new Quiz(R.string.sad_question_12, 'a', R.string.sad_question_12_answer_a, R.string.sad_question_12_answer_b, R.string.sad_question_12_answer_c),
+            new Quiz(R.string.sad_question_13, 'c', R.string.sad_question_13_answer_a, R.string.sad_question_13_answer_b, R.string.sad_question_13_answer_c),
+            new Quiz(R.string.sad_question_14, 'a', R.string.sad_question_14_answer_a, R.string.sad_question_14_answer_b, R.string.sad_question_14_answer_c),
+            new Quiz(R.string.sad_question_15, 'b', R.string.sad_question_15_answer_a, R.string.sad_question_15_answer_b, R.string.sad_question_15_answer_c)
     };
 
     final int PROGRESS_BAR_INCREMENT = (int) Math.ceil(100.0 / mWebQuestionBank.length);
@@ -142,15 +159,12 @@ public class QuizActivity extends AppCompatActivity {
             hintCount = 3;
         }
 
-
         setupUserName();
         resetButtons();
-
 
         FirebaseDatabase.getInstance().getReference("users-scoreboard").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
 
                 if(snapshot.getValue()==null){
                     mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -174,15 +188,10 @@ public class QuizActivity extends AppCompatActivity {
                     }
                 }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
-
 
         //TODO Do the same for OOP and SAD
         if (mQuizType.equals("web")) {
@@ -203,10 +212,15 @@ public class QuizActivity extends AppCompatActivity {
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
             mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
+        }else if (mQuizType.equals("sad")) {
+            mQuestionBank = fullCopy(mSADQuestionBank);
+            mQuestion = mQuestionBank[index].getQuestionId();
+            mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
+            mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
+            mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
         }
 
         questionText.setText(mQuestion);
-
 
         mAButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,11 +251,9 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-
         //Shake for hints service
         Intent intent = new Intent(this, ShakeService.class);
         startService(intent);
-
     }
 
     private void updateQuestion() {
@@ -309,8 +321,6 @@ public class QuizActivity extends AppCompatActivity {
                     hintText.setText(hintCount + " hints remaining.");
                     questionNumber = 1;
                     scoreTextView.setText("Question " + (index + 1) + " Score " + score + "/" + mQuestionBank.length);
-
-
                 }
             });
             alert.setNeutralButton("Main Menu", new DialogInterface.OnClickListener() {
@@ -332,7 +342,6 @@ public class QuizActivity extends AppCompatActivity {
         questionText.setText(mQuestion);
         progressBar.incrementProgressBy(PROGRESS_BAR_INCREMENT);
         scoreTextView.setText("Question " + (questionNumber) + " Score " + score + "/" + mQuestionBank.length);
-
 
         Log.d("QUIZ", "hintIsShown(updateQuestion): " + hintIsShown);
 
@@ -361,7 +370,6 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public void getCorrectAnswer(Context context) {
         Animation blink = AnimationUtils.loadAnimation(context, R.anim.blink);
@@ -438,7 +446,6 @@ public class QuizActivity extends AppCompatActivity {
                         mCButton.startAnimation(blink);
                         mAButton.startAnimation(fadeToGrey);
                         mAButton.setEnabled(false);
-
                     }
                 }
             }
@@ -446,7 +453,6 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Out of hints!", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void setupUserName() {

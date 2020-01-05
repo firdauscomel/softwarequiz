@@ -5,7 +5,6 @@
     <string name="correct_toast">You got it!</string>
 
     <!--    Web Eng. questions-->
-
     <string name="web_question_1">Which of the following is not a basic web elements</string>
     <string name="web_question_1_answer_a">A: HTTP Request</string>
     <string name="web_question_1_answer_b">B: HTTP Response</string>
@@ -80,7 +79,6 @@
     <string name="web_question_15_answer_a">A: &lt;script&gt;</string>
     <string name="web_question_15_answer_b">B: &lt;body&gt;</string>
     <string name="web_question_15_answer_c">C: &lt;head&gt;</string>
-
 
     <!--    Data Struct questions-->
     <string name="ds_question_1">Prefix notation is also known as</string>
@@ -234,6 +232,80 @@
     <string name="oop_question_15_answer_b">B: Polymorphism</string>
     <string name="oop_question_15_answer_c">C: Abstraction</string>
 
+    <!--    SAD questions-->
+    <string name="sad_question_1">What is defined as data that has been processed into a form that is meaningful to the user?</string>
+    <string name="sad_question_1_answer_a">A: System</string>
+    <string name="sad_question_1_answer_b">B: Information</string>
+    <string name="sad_question_1_answer_c">C: Technology</string>
 
-    <!--    Jason was here!-->
+    <string name="sad_question_2">After the design phase, the document prepared is called?</string>
+    <string name="sad_question_2_answer_a">A: Requirement specification</string>
+    <string name="sad_question_2_answer_b">B: System specification</string>
+    <string name="sad_question_2_answer_c">C: Design specification</string>
+
+    <string name="sad_question_3">In a data flow diagram, external entities are represented by what symbol?</string>
+    <string name="sad_question_3_answer_a">A: Rectangle</string>
+    <string name="sad_question_3_answer_b">B: Circle</string>
+    <string name="sad_question_3_answer_c">C: Ellipse</string>
+
+    <string name="sad_question_4">Which of the following is true regarding data flow?</string>
+    <string name="sad_question_4_answer_a">A: Only emanate from an external entity</string>
+    <string name="sad_question_4_answer_b">B: Only terminate in an external entity</string>
+    <string name="sad_question_4_answer_c">C: May emanate and terminate in an external entity</string>
+
+    <string name="sad_question_5">SDLC stands for?</string>
+    <string name="sad_question_5_answer_a">A: System Design Life Cycle</string>
+    <string name="sad_question_5_answer_b">B: Software Development Life Cycle</string>
+    <string name="sad_question_5_answer_c">C: Structure Development Life Cycle</string>
+
+    <string name="sad_question_6">The data flow diagram is a basic component of a?</string>
+    <string name="sad_question_6_answer_a">A: Logical system</string>
+    <string name="sad_question_6_answer_b">B: Conceptual system</string>
+    <string name="sad_question_6_answer_c">C: Physical system</string>
+
+    <string name="sad_question_7">When is software programming done during the SDLC?</string>
+    <string name="sad_question_7_answer_a">A: Design phase</string>
+    <string name="sad_question_7_answer_b">B: Analysis phase</string>
+    <string name="sad_question_7_answer_c">C: Development phase</string>
+
+    <string name="sad_question_8">Enhancements, upgrades and bug fixes are done during which part of the SDLC?</string>
+    <string name="sad_question_8_answer_a">A: Problem identification phase</string>
+    <string name="sad_question_8_answer_b">B: Maintenance and Evolution phase</string>
+    <string name="sad_question_8_answer_c">C: Development phase</string>
+
+    <string name="sad_question_9">What is defined as a tabular method for describing the logic of decisions to be taken?</string>
+    <string name="sad_question_9_answer_a">A: Binary tree</string>
+    <string name="sad_question_9_answer_b">B: Natural language</string>
+    <string name="sad_question_9_answer_c">C: Decision table</string>
+
+    <string name="sad_question_10">A decision table facilitates conditions to be related to?</string>
+    <string name="sad_question_10_answer_a">A: Operations</string>
+    <string name="sad_question_10_answer_b">B: Actions</string>
+    <string name="sad_question_10_answer_c">C: Programs</string>
+
+    <string name="sad_question_11">When is requirements specification carried out?</string>
+    <string name="sad_question_11_answer_a">A: Before requirements are determined</string>
+    <string name="sad_question_11_answer_b">B: Simultaneously with requirements determination</string>
+    <string name="sad_question_11_answer_c">C: After requirements are determined</string>
+
+    <string name="sad_question_12">Which of these tools are not used for process description?</string>
+    <string name="sad_question_12_answer_a">A: Data dictionary</string>
+    <string name="sad_question_12_answer_b">B: Pseudocode</string>
+    <string name="sad_question_12_answer_c">C: Decision table</string>
+
+    <string name="sad_question_13">What is the main objective of system modifications?</string>
+    <string name="sad_question_13_answer_a">A: To use the latest software tools</string>
+    <string name="sad_question_13_answer_b">B: To have a modern system</string>
+    <string name="sad_question_13_answer_c">C: To meet new needs of customers</string>
+
+    <string name="sad_question_14">Which of the following activity does not belong in the Implementation phase of the SDLC?</string>
+    <string name="sad_question_14_answer_a">A: Program testing</string>
+    <string name="sad_question_14_answer_b">B: File conversion</string>
+    <string name="sad_question_14_answer_c">C: User training</string>
+
+    <string name="sad_question_15">During a system study, analysts determine customer needs by?</string>
+    <string name="sad_question_15_answer_a">A: Direct observation</string>
+    <string name="sad_question_15_answer_b">B: Asking questions</string>
+    <string name="sad_question_15_answer_c">C: Analysing documents</string>
+
 </resources>
