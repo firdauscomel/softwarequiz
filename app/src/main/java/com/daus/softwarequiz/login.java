@@ -16,14 +16,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 
-public class login extends AppCompatActivity {
+public class login extends AppCompatActivity implements BiometricCallback {
 
     private EditText emailTextView, passwordTextView;
-    private Button Btnlogin, devLoginBtn;
+    private Button Btnlogin, devLoginBtn, fingerPrintBtn;
     private ProgressBar progressbar;
     private ImageView mMenuLogoutImg;
     private TextView tvregister, tvforgot;
+    BiometricManager mBiometricManager;
 
     private FirebaseAuth mAuth;
     @Override
@@ -41,6 +43,7 @@ public class login extends AppCompatActivity {
         tvregister = findViewById(R.id.register_text_view);
         tvforgot = findViewById(R.id.forgot_text_view);
         devLoginBtn = findViewById(R.id.login_button2);
+        fingerPrintBtn = findViewById(R.id.login_fingerprint);
 
         tvregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +155,28 @@ public class login extends AppCompatActivity {
                 devLogin();
             }
         });
+
+        fingerPrintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser == null) {
+                    Toast.makeText(getApplicationContext(), "No account detected", Toast.LENGTH_LONG).show();
+
+                } else {
+                    mBiometricManager = new BiometricManager.BiometricBuilder(login.this)
+                            .setTitle(getString(R.string.biometric_title))
+                            .setSubtitle(getString(R.string.biometric_subtitle))
+                            .setDescription(getString(R.string.biometric_description))
+                            .setNegativeButtonText(getString(R.string.biometric_negative_button_text))
+                            .build();
+
+                    //start authentication
+                    mBiometricManager.authenticate(login.this);
+                }
+            }
+        });
     }
 
     public void devLogin(){
@@ -174,5 +199,57 @@ public class login extends AppCompatActivity {
 
                     }
                 });
+    }
+    @Override
+    public void onSdkVersionNotSupported() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_error_sdk_not_supported), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBiometricAuthenticationNotSupported() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_error_hardware_not_supported), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBiometricAuthenticationNotAvailable() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_error_fingerprint_not_available), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBiometricAuthenticationPermissionNotGranted() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_error_permission_not_granted), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBiometricAuthenticationInternalError(String error) {
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthenticationFailed() {
+//        Toast.makeText(getApplicationContext(), getString(R.string.biometric_failure), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthenticationCancelled() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_cancelled), Toast.LENGTH_LONG).show();
+        mBiometricManager.cancelAuthentication();
+    }
+
+    @Override
+    public void onAuthenticationSuccessful() {
+        Toast.makeText(getApplicationContext(), getString(R.string.biometric_success), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(login.this, MainMenu.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAuthenticationHelp(int helpCode, CharSequence helpString) {
+//        Toast.makeText(getApplicationContext(), helpString, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthenticationError(int errorCode, CharSequence errString) {
+//        Toast.makeText(getApplicationContext(), errString, Toast.LENGTH_LONG).show();
     }
 }

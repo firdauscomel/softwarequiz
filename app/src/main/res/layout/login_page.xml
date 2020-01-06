@@ -33,6 +33,23 @@
             app:cornerRadius="20dp"
 
             />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_fingerprint"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/forgot_text_view"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/red"
+            android:fontFamily="@font/futara"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Fingerprint Login"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:cornerRadius="20dp"
+
+            />
 
         <ImageView
             android:id="@+id/login_close_button"
