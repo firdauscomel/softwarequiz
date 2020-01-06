@@ -321,7 +321,7 @@ public class QuizActivity extends AppCompatActivity {
                 updateDatabase(user);
 
             }
-            alert.setMessage("You scored " + score + " points!" + "\n You best score is " + bestScore + " points!");
+            alert.setMessage("You scored " + score + " points!" + "\nYour best score is " + bestScore + " points!");
             alert.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
