@@ -110,7 +110,14 @@ public class register extends AppCompatActivity {
                     inputEmail.setText("");
                     inputPassword.setText("");
 
-                } else{
+                }
+                else  if (username.length() > 10) {
+                    Toast.makeText(getApplicationContext(), "Username too long, enter maximum 10 characters!", Toast.LENGTH_SHORT).show();
+                    inputUsername.setText("");
+                    inputEmail.setText("");
+                    inputPassword.setText("");
+
+                }else{
                     progressBar.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
@@ -132,7 +139,7 @@ public class register extends AppCompatActivity {
                                                 finish();
                                                 startActivity(new Intent(register.this, MainMenu.class));
                                             }
-                                        }, 1000);
+                                        }, 2000);
                                     }
                                 }
                             });

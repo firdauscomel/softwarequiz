@@ -173,6 +173,7 @@ public class QuizActivity extends AppCompatActivity {
                     Log.i("user","created new user");
                 } else {
                     userNew = snapshot.getValue(User.class);
+
 //                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 //                        System.out.println(snapshot.getValue().toString());
 //                        Log.i("username", ""+postSnapshot.child("webScore").getValue());
