@@ -36,7 +36,7 @@ public class QuizActivity extends AppCompatActivity {
     static Button mAButton, mBButon, mCButton;//public static because these buttons need to be accessed by ShakeService.java
     TextView questionText, hintText;
     static int index;//static for the same reason as above. Only a single instance is needed at a given time
-    int score;
+    int score, bestScore;
     int mQuestion;
     int questionNumber = 1;
     public static int hintCount = 3;
@@ -167,10 +167,10 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                if(snapshot.getValue()==null){
+                if (snapshot.getValue() == null) {
                     mDatabaseReference = FirebaseDatabase.getInstance().getReference();
                     user = new User(mUsername);
-                    Log.i("user","created new user");
+                    Log.i("user", "created new user");
                 } else {
                     userNew = snapshot.getValue(User.class);
 
@@ -185,8 +185,8 @@ public class QuizActivity extends AppCompatActivity {
 //                        userNew = new User(name,web,oop,sad,data);
 //                        FirebaseDatabase.getInstance().getReference("users-scoreboard").child(mAuth.getUid()).push().setValue(userNew);
 
-                    }
                 }
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -200,19 +200,19 @@ public class QuizActivity extends AppCompatActivity {
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
             mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
-        }else if (mQuizType.equals("ds")) {
+        } else if (mQuizType.equals("ds")) {
             mQuestionBank = fullCopy(mDSQuestionBank);
             mQuestion = mQuestionBank[index].getQuestionId();
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
             mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
-        }else if (mQuizType.equals("oop")) {
+        } else if (mQuizType.equals("oop")) {
             mQuestionBank = fullCopy(mOOPQuestionBank);
             mQuestion = mQuestionBank[index].getQuestionId();
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
             mBButon.setText(mQuestionBank[index].getQuiz_answer_b());
             mCButton.setText(mQuestionBank[index].getQuiz_answer_c());
-        }else if (mQuizType.equals("sad")) {
+        } else if (mQuizType.equals("sad")) {
             mQuestionBank = fullCopy(mSADQuestionBank);
             mQuestion = mQuestionBank[index].getQuestionId();
             mAButton.setText(mQuestionBank[index].getQuiz_answer_a());
@@ -266,51 +266,62 @@ public class QuizActivity extends AppCompatActivity {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Game Over");
             alert.setCancelable(false);
-            alert.setMessage("You scored " + score + " points!");
 
-            if(userNew != null) {
-                if(mQuizType.equals("web")){
+
+            if (userNew != null) {
+                if (mQuizType.equals("web")) {
                     Log.i("webscore", String.valueOf(userNew.getWebScore()));
                     if (userNew.getWebScore() < score) {
                         userNew.setWebScore(score);
                     }
-                }else if(mQuizType.equals("ds")){
+                    bestScore = userNew.getWebScore();
+                } else if (mQuizType.equals("ds")) {
                     if (userNew.getDataStrucScore() < score) {
                         userNew.setDataStrucScore(score);
                     }
-                }else if(mQuizType.equals("oop")){
+                    bestScore = userNew.getDataStrucScore();
+                } else if (mQuizType.equals("oop")) {
                     if (userNew.getOopScore() < score) {
                         userNew.setOopScore(score);
                     }
-                }else if(mQuizType.equals("sad")){
+                    bestScore = userNew.getOopScore();
+                } else if (mQuizType.equals("sad")) {
                     if (userNew.getSadScore() < score) {
                         userNew.setSadScore(score);
                     }
+                    bestScore = userNew.getSadScore();
                 }
+
                 userNew.setTotalScore();
                 updateDatabase(userNew);
-            }else{
-                if(mQuizType.equals("web")) {
+            } else {
+                if (mQuizType.equals("web")) {
                     Log.i("webscore", String.valueOf(user.getWebScore()));
                     if (user.getWebScore() < score) {
                         user.setWebScore(score);
                     }
-                }else if(mQuizType.equals("ds")){
+                    bestScore = user.getWebScore();
+                } else if (mQuizType.equals("ds")) {
                     if (user.getDataStrucScore() < score) {
                         user.setDataStrucScore(score);
                     }
-                }else if(mQuizType.equals("oop")){
+                    bestScore = user.getDataStrucScore();
+                } else if (mQuizType.equals("oop")) {
                     if (user.getOopScore() < score) {
                         user.setOopScore(score);
                     }
-                }else if(mQuizType.equals("sad")){
+                    bestScore = user.getOopScore();
+                } else if (mQuizType.equals("sad")) {
                     if (user.getSadScore() < score) {
                         user.setSadScore(score);
                     }
+                    bestScore = user.getSadScore();
                 }
                 user.setTotalScore();
                 updateDatabase(user);
+
             }
+            alert.setMessage("You scored " + score + " points!" + "\n You best score is " + bestScore + " points!");
             alert.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -484,16 +495,16 @@ public class QuizActivity extends AppCompatActivity {
     private static Quiz[] fullCopy(Quiz[] source) {
         Quiz[] destination = new Quiz[source.length];
 
-        for(int i=0; i< source.length; i++) {
+        for (int i = 0; i < source.length; i++) {
             Quiz q = source[i];
-            if(q!=null){
-                destination[i]=new Quiz(q);
+            if (q != null) {
+                destination[i] = new Quiz(q);
             }
         }
         return destination;
     }
 
-    private void resetButtons(){
+    private void resetButtons() {
         mAButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
         mBButon.setBackgroundColor(getResources().getColor(R.color.brown_red));
         mCButton.setBackgroundColor(getResources().getColor(R.color.brown_red));
