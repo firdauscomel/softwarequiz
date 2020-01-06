@@ -9,11 +9,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+
         android:layout_weight="0.07"
         android:fontFamily="@font/futara"
         android:text="1"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/name_txt"
@@ -23,7 +24,7 @@
         android:fontFamily="@font/futara"
         android:text="Name"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/score_txt"
@@ -34,16 +35,15 @@
         android:text="100"
         android:textAlignment="textEnd"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/points_txt"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
         android:layout_weight="0.2"
         android:fontFamily="@font/futara"
         android:text="  points"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="15sp" />
 </LinearLayout>

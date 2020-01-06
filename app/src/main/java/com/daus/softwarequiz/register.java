@@ -75,6 +75,7 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String username = inputUsername.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
@@ -85,51 +86,57 @@ public class register extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)) {
+                else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Please enter password!!", Toast.LENGTH_SHORT).show();
                     inputEmail.setText("");
                     inputPassword.setText("");
                     return;
                 }
 
-                if (password.length() < 6) {
+                else if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     inputEmail.setText("");
                     inputPassword.setText("");
                     return;
                 }
-                if(!email.contains("@")) {
+                else if(!email.contains("@")) {
                     Toast.makeText(getApplicationContext(), "Please enter a valid email", Toast.LENGTH_SHORT).show();
                     inputEmail.setText("");
                     inputPassword.setText("");
                 }
+                else if(TextUtils.isEmpty(username)){
+                    Toast.makeText(getApplicationContext(), "Please enter a username", Toast.LENGTH_SHORT).show();
+                    inputUsername.setText("");
+                    inputEmail.setText("");
+                    inputPassword.setText("");
 
-                progressBar.setVisibility(View.VISIBLE);
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                    inputEmail.setText("");
-                                    inputPassword.setText("");
-                                } else {
-                                    saveUserName();
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(register.this, "Register successful!", Toast.LENGTH_SHORT).show();
-                                            progressBar.setVisibility(View.GONE);
-                                            //Added small timeout to allow the username to load properly after registering
-                                            finish();
-                                            startActivity(new Intent(register.this, MainMenu.class));
-                                        }
-                                    }, 1000);
+                } else{
+                    progressBar.setVisibility(View.VISIBLE);
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(register.this, "Authentication failed. Email already taken!", Toast.LENGTH_SHORT).show();
+                                        inputEmail.setText("");
+                                        inputPassword.setText("");
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        saveUserName();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(register.this, "Register successful!", Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(View.GONE);
+                                                //Added small timeout to allow the username to load properly after registering
+                                                finish();
+                                                startActivity(new Intent(register.this, MainMenu.class));
+                                            }
+                                        }, 1000);
+                                    }
                                 }
-                            }
-                        });
-
+                            });
+                }
             }
         });
     }
@@ -141,6 +148,7 @@ public class register extends AppCompatActivity {
 
         //Update display name in Firebase Auth
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(inputUsername.getText().toString())
